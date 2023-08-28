@@ -1,6 +1,6 @@
 # spectra
 
-> *Last Updated: 16 August 2023*
+> *Last Updated: 28 August 2023*
 
 A simulation of the Schumann-Runge bands of molecular oxygen written in Python.
 
@@ -59,6 +59,6 @@ Convolved lineshapes are simulated and plotted against sample data from the [Har
 
 There is quite a bit of functionality I'd still like to add in the future, such as:
 
-- [ ] Predissociation linewidth broadening in the Lorentzian convolution
+- [x] Predissociation linewidth broadening in the Lorentzian convolution
+- [x] Addition of Franck-Condon factors to allow for the computation of two or more vibrational transitions at once
 - [ ] Proper computation for the intensities of the triplet fine structures (right now the intensities of the fine structure levels $F_1$ and $F_3$ are set to half of the main structure $F_2$)
-- [ ] Addition of Franck-Condon factors to allow for the computation of two or more vibrational transitions at once

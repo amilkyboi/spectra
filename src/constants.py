@@ -1,6 +1,6 @@
 # module constants
 '''
-Various physical and diatomic constants for use with spectral simulations.
+Physical and diatomic constants for the X3Σg- to B3Σu- transition of oxygen.
 '''
 
 # Global Constants
@@ -12,7 +12,7 @@ AVOGD = 6.02214076e23  # Avodagro Constant  [1/mol]
 
 # Equilibrium values of the X 3Σg- and B 3Σu- states
 
-## X 3Σg-
+## X3Σg-
 X_TE     = 0.0         # minimum electronic energy                           [1/cm]
 
 X_WE     = 1580.193    # vibrational constant - first term                   [1/cm]
@@ -46,7 +46,7 @@ X_RAD    = 1.20752e-8  # internuclear distance                               [cm
 X_CONSTS = [X_TE, X_WE, X_WE_XE, X_WE_YE, X_WE_ZE, X_BE, X_ALPH_E, X_GAMM_E, X_DELT_E, X_DE, \
             X_BETA_E, X_HE, X_LAMD, X_GAMM]
 
-## B 3Σu-
+## B3Σu-
 B_TE     = 49793.28 # minimum electronic energy                           [1/cm]
 
 B_WE     = 709.31   # vibrational constant - first term                   [1/cm]
