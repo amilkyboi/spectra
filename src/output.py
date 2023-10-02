@@ -75,7 +75,7 @@ def plot_line(data: list[tuple], colors: list[str], labels: list[str]) -> None:
     for i, (wave, intn) in enumerate(data):
         plt.stem(wave, intn, colors[i], markerfmt='', label=f'{labels[i]}')
 
-def plot_conv(data: list[tuple], colors: list[str], labels: list[str]) -> None:
+def plot_sep_conv(data: list[tuple], colors: list[str], labels: list[str]) -> None:
     '''
     Plots wavenumber vs. intensity for convolved data.
 
@@ -87,6 +87,16 @@ def plot_conv(data: list[tuple], colors: list[str], labels: list[str]) -> None:
 
     for i, (wave, intn) in enumerate(data):
         plt.plot(wave, intn, colors[i], label=f'{labels[i]}')
+
+def plot_all_conv(data: tuple) -> None:
+    '''
+    Plots wavenumber vs. intensity for convolved data.
+
+    Args:
+        data (list[tuple]): (wavenumbers, intensities)
+    '''
+
+    plt.plot(data[0], data[1], label=f'Convolved Data: {inp.VIB_BANDS}')
 
 def plot_samp(data: list[tuple], colors: list[str], labels: list[str]) -> None:
     '''

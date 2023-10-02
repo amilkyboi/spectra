@@ -17,7 +17,7 @@ PRES: float = 101325.0
 ROT_LVLS: np.ndarray = np.arange(0, 37, 1)
 
 # List of vibrational transitions considered in (v', v'') format
-VIB_BANDS: list[tuple] = [(2, 0)]
+VIB_BANDS: list[tuple[int, int]] = [(2, 0)]
 
 # Band origin override
 # Constants don't line up exactly for comparison with Cosby (0, 9) data, so the band origin can be
@@ -27,19 +27,21 @@ BAND_ORIG: tuple[bool, int] = (False, 36185)
 # Line data
 LINE_DATA: bool = False
 
-# Convolved data
-CONV_DATA: bool = True
+# Convolve data separately (convolve each vibrational transition individually)
+CONV_SEP: bool = True
+# Convolve data together (combine all quantized line positions and convolve together)
+CONV_ALL: bool = False
 # Granulatity of the convolved data
 CONV_GRAN: int  = 10000
 
 # Sample data
 SAMP_DATA: bool = True
-SAMP_FILE: list[str] = ['harvard']
+SAMP_FILE: list[str] = ['harvard/harvard20']
 SAMP_COLS: list[str] = ['purple']
 SAMP_LABL: list[str] = ['Harvard Data']
 
 # General plotting
-PLOT_SAVE:  bool  = True
+PLOT_SAVE:  bool  = False
 PLOT_PATH:  str   = '../img/example.webp'
 DPI:        int   = 96
 SCREEN_RES: tuple = (1920, 1080)
@@ -47,4 +49,4 @@ SCREEN_RES: tuple = (1920, 1080)
 # Custom plot limits
 SET_LIMS: tuple[bool, tuple] = (False, (36170, 36192))
 # Custom font size
-FONT_SIZE: tuple[bool, int] = (False, 20)
+FONT_SIZE: tuple[bool, int] = (True, 18)

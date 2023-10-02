@@ -39,16 +39,22 @@ def rotational_term(rot_qn: int, state: 'State', branch_idx: int) -> float:
                  state.rotational_constants()[1] * rot_qn**2 * (rot_qn + 1)**2 + \
                  state.rotational_constants()[2] * rot_qn**3 * (rot_qn + 1)**3
 
-    # See footnote 2 on pg. 223 of Herzberg
-    # For N = 1, the sign in front of the square root must be inverted
-    if rot_qn == 1:
-        sqrt_sign = -1
-    else:
-        sqrt_sign = 1
+    # TODO: 9/24/23 this was causing the weird line appearing where they shouldn't be, removing it
+    #       fixed the issue of random lines at high wavenumbers. Matches data much better now
 
-    # NOTE: reminder that the sign in front of state.spn_const[0] was changed from a - to a + on
-    #       8/7/23. I believe that the formula stated in Herzberg is wrong, as this change makes the
-    #       results match experimental and simulated data more accurately.
+    # NOTE: See footnote 2 on pg. 223 of Herzberg
+    #       For N = 1, the sign in front of the square root must be inverted
+    # if rot_qn == 1:
+    #     sqrt_sign = -1
+    # else:
+    #     sqrt_sign = 1
+
+    sqrt_sign = 1
+
+    # TODO: 9/19/23 the sign in front of the state.spn_const[0] should 100% be a negative. I've
+    #       checked multiple sources at this point. I need to find out why there seems to be some
+    #       issues with how the triplet branches are spaced. Leaving it positive for now since it
+    #       gives better results.
     if branch_idx == 1:
         return first_term + (2 * rot_qn + 3) * state.rotational_constants()[0] + \
                state.spn_const[0] - sqrt_sign * np.sqrt((2 * rot_qn + 3)**2 * \

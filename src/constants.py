@@ -68,6 +68,9 @@ B_RE     = 1.60426  # equilibium internuclear distance                    [Å]
 B_V00    = 49358.15 # position of 0-0 band
 
 B_LAMD   = 1.5      # spin-spin constant                                  [1/cm] (v <= 12)
+
+# TODO: Not sure if this is supposed to be negative or not. Leaving it positive gives better
+#       results though.
 B_GAMM   = 0.04     # spin-rotation constant                              [1/cm] (v <= 12)
 
 B_RAD    = 1.60426e-8 # internuclear distance                             [cm]
