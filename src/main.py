@@ -4,7 +4,6 @@ Computes spectral lines for triplet oxygen. See the README for details on implem
 available features.
 '''
 
-import pandas as pd
 import numpy as np
 
 import matplotlib.pyplot as plt
@@ -20,12 +19,6 @@ def main():
     Runs the program.
     '''
 
-    # Read in the table of Franck-Condon factors
-    fc_data = np.loadtxt('../data/franck-condon/harris_rkr_fc.csv', delimiter=' ')
-
-    # Read in the table of predissociation constants from Cosby
-    pd_data = pd.read_csv('../data/predissociation.csv', delimiter=' ')
-
     # Create a vibrational band line plot for each of the user-selected bands
     band_list = []
     for band in inp.VIB_BANDS:
@@ -33,7 +26,7 @@ def main():
 
     # Find the maximum Franck-Condon factor of all the bands, this is used to normalize the
     # intensities of each band with respect to the largest band
-    max_fc = max((band.get_fc(fc_data) for band in band_list))
+    max_fc = max((band.get_fc(inp.FC_DATA) for band in band_list))
 
     # Set the plotting style
     out.plot_style()
@@ -48,21 +41,21 @@ def main():
     if inp.LINE_DATA:
         # Wavenumber and intensity data for each line contained within a tuple for each vibrational
         # transition
-        line_data   = [band.get_line(fc_data, max_fc, pd_data) for band in band_list]
+        line_data   = [band.get_line(inp.FC_DATA, max_fc, inp.PD_DATA) for band in band_list]
         line_colors = color_list[0:len(line_data)]
         line_labels = [str(band) + ' Band' for band in inp.VIB_BANDS]
 
         out.plot_line(line_data, line_colors, line_labels)
 
     if inp.CONV_SEP:
-        conv_data   = [band.get_conv(fc_data, max_fc, pd_data) for band in band_list]
-        conv_colors = color_list[len(conv_data):2*len(conv_data)]
+        conv_data   = [band.get_conv(inp.FC_DATA, max_fc, inp.PD_DATA) for band in band_list]
+        conv_colors = color_list[0:len(inp.VIB_BANDS)]
         conv_labels = ['Convolved ' + str(band) + ' Band' for band in inp.VIB_BANDS]
 
         out.plot_sep_conv(conv_data, conv_colors, conv_labels)
 
     if inp.CONV_ALL:
-        line_data = [band.get_line(fc_data, max_fc, pd_data) for band in band_list]
+        line_data = [band.get_line(inp.FC_DATA, max_fc, inp.PD_DATA) for band in band_list]
 
         all_wavenumbers = []
         all_intensities = []
@@ -71,7 +64,7 @@ def main():
             all_wavenumbers.extend(wavenumbers)
             all_intensities.extend(intensities)
 
-        lines = init.selection_rules(inp.ROT_LVLS, pd_data)
+        lines = init.selection_rules(inp.ROT_LVLS, inp.PD_DATA)
 
         # NOTE: every vibrational band needs a full lines list, meaning that just using a single one
         #       doesn't work because it's half as long as it needs to be

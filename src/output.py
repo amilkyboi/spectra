@@ -29,10 +29,20 @@ def show_plot():
     if inp.SET_LIMS[0]:
         plt.xlim(inp.SET_LIMS[1][0], inp.SET_LIMS[1][1])
 
-    plt.title(f'Pressure: {inp.PRES} Pa, Temperature: {inp.TEMP} K')
+    plt.title(f'{inp.PRES} Pa, {inp.TEMP} K')
     plt.xlabel('Wavenumber $\\nu$, [cm$^{-1}$]')
     plt.ylabel('Normalized Intensity')
-    plt.legend()
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+    # Convert from wavenumber to wavelength
+    def wn2wl(wns):
+        return (1 / wns) * 1e7
+
+    ax = plt.gca()
+
+    # Add a secondary axis for wavelength
+    secax = ax.secondary_xaxis('top', functions=(wn2wl, wn2wl))
+    secax.set_xlabel('Wavelength $\\lambda$, [nm]')
 
     if inp.PLOT_SAVE:
         plt.savefig(inp.PLOT_PATH, dpi=inp.DPI * 2)
@@ -73,7 +83,11 @@ def plot_line(data: list[tuple], colors: list[str], labels: list[str]) -> None:
     '''
 
     for i, (wave, intn) in enumerate(data):
-        plt.stem(wave, intn, colors[i], markerfmt='', label=f'{labels[i]}')
+        if inp.VIB_BANDS[i][0] == 0:
+            colr = 'b'
+        else:
+            colr = 'r'
+        plt.stem(wave, intn, colr, markerfmt='', label=f'{labels[i]}')
 
 def plot_sep_conv(data: list[tuple], colors: list[str], labels: list[str]) -> None:
     '''
@@ -86,7 +100,11 @@ def plot_sep_conv(data: list[tuple], colors: list[str], labels: list[str]) -> No
     '''
 
     for i, (wave, intn) in enumerate(data):
-        plt.plot(wave, intn, colors[i], label=f'{labels[i]}')
+        if inp.VIB_BANDS[i][0] == 0:
+            colr = 'b'
+        else:
+            colr = 'r'
+        plt.plot(wave, intn, color=colr, label=f'{labels[i]}')
 
 def plot_all_conv(data: tuple) -> None:
     '''
