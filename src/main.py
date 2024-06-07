@@ -1,91 +1,61 @@
-# module main
-'''
-Computes spectral lines for triplet oxygen. See the README for details on implementation along with
-available features.
-'''
+# module test
+"""
+Contains example spectra for absorption and emission.
+"""
 
 import numpy as np
-
 import matplotlib.pyplot as plt
+from matplotlib.colors import Colormap, to_hex
 
-import initialize as init
-import convolution as conv
-import output as out
-import input as inp
-import bands
+import plot
+from molecule import Molecule
+from simulation import Simulation, SimType
 
 def main():
-    '''
-    Runs the program.
-    '''
+    """
+    Construct example spectra here.
+    """
 
-    # Create a vibrational band line plot for each of the user-selected bands
-    band_list = []
-    for band in inp.VIB_BANDS:
-        band_list.append(bands.LinePlot(inp.TEMP, inp.PRES, inp.ROT_LVLS, band))
+    # NOTE: 05/06/24 - Only O2 is working right now; selection rules, etc. for other molecules are
+    #       currently not implemented
 
-    # Find the maximum Franck-Condon factor of all the bands, this is used to normalize the
-    # intensities of each band with respect to the largest band
-    max_fc = max((band.get_fc(inp.FC_DATA) for band in band_list))
+    temp: float = 300.0
+    pres: float = 101325.0
 
-    # Set the plotting style
-    out.plot_style()
+    bands: list[tuple[int, int]] = [(2, 0)] # for x in range(0, 7) for v in range(18, -1, -1)]
 
-    # Since each set of lines is plotted separately, matplotlib doesn't know to cycle colors after
-    # each one is plotted
+    o2_mol: Molecule = Molecule('o2', 'o', 'o')
 
-    # This generates a list of hex values that are fed to the plot generators
-    color_list = plt.rcParams['axes.prop_cycle'].by_key()['color']
+    o2_sim: Simulation = Simulation(o2_mol, temp, pres, np.arange(0, 36), 'b3su', 'x3sg', bands,
+                                    SimType.ABSORPTION)
 
-    # Automatic coloring and labeling is done for both line and convolved plots
-    if inp.LINE_DATA:
-        # Wavenumber and intensity data for each line contained within a tuple for each vibrational
-        # transition
-        line_data   = [band.get_line(inp.FC_DATA, max_fc, inp.PD_DATA) for band in band_list]
-        line_colors = color_list[0:len(line_data)]
-        line_labels = [str(band) + ' Band' for band in inp.VIB_BANDS]
+    colors_small: list[str] = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
-        out.plot_line(line_data, line_colors, line_labels)
+    palette:    list[tuple] = plt.cycler('color', plt.cm.tab20c.colors).by_key()['color']
+    colors_mid: list[str]   = [to_hex(color) for color in palette]
 
-    if inp.CONV_SEP:
-        conv_data   = [band.get_conv(inp.FC_DATA, max_fc, inp.PD_DATA) for band in band_list]
-        conv_colors = color_list[0:len(inp.VIB_BANDS)]
-        conv_labels = ['Convolved ' + str(band) + ' Band' for band in inp.VIB_BANDS]
+    cmap:         Colormap  = plt.get_cmap('rainbow')
+    num_bands:    int       = len(bands)
+    colors_large: list[str] = [to_hex(cmap(i / num_bands)) for i in range(num_bands)]
 
-        out.plot_sep_conv(conv_data, conv_colors, conv_labels)
+    # FIXME: 05/06/24 - Each time a plot is called (plot_line, plot_info, etc.), the vibrational
+    #        bands are iterated through, meaning the wavelength and intensity info for each band is
+    #        potentially being re-calculated several times
 
-    if inp.CONV_ALL:
-        line_data = [band.get_line(inp.FC_DATA, max_fc, inp.PD_DATA) for band in band_list]
+    # FIXME: 05/06/24 - The intensities are no longer normalized after adding the vibrational
+    #        partition function; normalization would have to be performed on all vibrational bands
+    #        at once
 
-        all_wavenumbers = []
-        all_intensities = []
+    plot.plot_conv(o2_sim, colors_small)
+    plot.plot_samp('harvard/harvard20', colors_small[1], 'plot')
+    plot.plot_residual(o2_sim, colors_small[2], 'harvard/harvard20')
 
-        for wavenumbers, intensities in line_data:
-            all_wavenumbers.extend(wavenumbers)
-            all_intensities.extend(intensities)
+    # Testing how the PGOPHER data compares when convolved (estimating predissociation rates)
+    # from test import cwls, cins
 
-        lines = init.selection_rules(inp.ROT_LVLS, inp.PD_DATA)
+    # plt.plot(cwls, cins, 'black', label='pgopher')
 
-        # NOTE: every vibrational band needs a full lines list, meaning that just using a single one
-        #       doesn't work because it's half as long as it needs to be
-        total_lines = np.array([])
-        for _ in inp.VIB_BANDS:
-            total_lines = np.append(total_lines, lines)
-
-        all_conv = conv.convolved_data(np.array(all_wavenumbers), np.array(all_intensities),
-                                       inp.TEMP, inp.PRES, total_lines)
-
-        out.plot_all_conv(all_conv)
-
-    # Colors and labels for sample data are set in the input.py file
-    if inp.SAMP_DATA:
-        samp_data   = []
-        for file in inp.SAMP_FILE:
-            samp_data.append(out.configure_samples(file))
-        out.plot_samp(samp_data, inp.SAMP_COLS, inp.SAMP_LABL)
-
-    # Display all data on one plot
-    out.show_plot()
+    plot.plot_show()
 
 if __name__ == '__main__':
     main()

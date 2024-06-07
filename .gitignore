@@ -15,3 +15,4 @@
 *.run.xml
 *.bbl
 *.blg
+*.pgf-plot.*

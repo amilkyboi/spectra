@@ -1,191 +1,119 @@
-# module test
-'''
-Testing a better implementation of LIF simulation.
-'''
+# module lif
+"""
+Contains example spectra for LIF.
+"""
 
-import itertools
-
-import scienceplots # pylint: disable=unused-import
-import matplotlib.colors as mcolors
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.colors
+import matplotlib.pyplot as plt
 
-import convolution as conv
-import initialize as init
-import constants as cn
-import input as inp
-import energy
-
-plt.style.use(['science', 'grid'])
-plt.rcParams.update({'font.size': inp.FONT_SIZE[1]})
-
-def selection_rules(gnd_rot_qn, ext_rot_qn):
-
-    lines = []
-
-    d_rot_qn = ext_rot_qn - gnd_rot_qn
-
-    # For molecular oxygen, all transitions with even values of J'' are forbidden
-    if gnd_rot_qn % 2 == 1:
-
-        # Selection rules for the R branch
-        if d_rot_qn == 1:
-            for grnd_branch_idx, exct_branch_idx in itertools.product(range(1, 4), repeat=2):
-                if grnd_branch_idx == exct_branch_idx:
-                    lines.append(init.SpectralLine(gnd_rot_qn, ext_rot_qn, 'r',
-                                                   grnd_branch_idx, exct_branch_idx, 0.0))
-                if grnd_branch_idx > exct_branch_idx:
-                    lines.append(init.SpectralLine(gnd_rot_qn, ext_rot_qn, 'rq',
-                                                   grnd_branch_idx, exct_branch_idx, 0.0))
-
-        # Selection rules for the P branch
-        elif d_rot_qn == -1:
-            for grnd_branch_idx, exct_branch_idx in itertools.product(range(1, 4), repeat=2):
-                if grnd_branch_idx == exct_branch_idx:
-                    lines.append(init.SpectralLine(gnd_rot_qn, ext_rot_qn, 'p',
-                                                   grnd_branch_idx, exct_branch_idx, 0.0))
-                if grnd_branch_idx < exct_branch_idx:
-                    lines.append(init.SpectralLine(gnd_rot_qn, ext_rot_qn, 'pq',
-                                                   grnd_branch_idx, exct_branch_idx, 0.0))
-
-    for line in lines:
-        if line.gnd_branch_idx == 1:
-            line.predissociation = inp.PD_DATA['f1'][inp.PD_DATA['rot_qn'] == line.ext_rot_qn].iloc[0]
-        elif line.gnd_branch_idx == 2:
-            line.predissociation = inp.PD_DATA['f2'][inp.PD_DATA['rot_qn'] == line.ext_rot_qn].iloc[0]
-        else:
-            line.predissociation = inp.PD_DATA['f3'][inp.PD_DATA['rot_qn'] == line.ext_rot_qn].iloc[0]
-
-    return np.array(lines)
-
-class LinePlot:
-    '''
-    Each LinePlot is a separate vibrational band.
-    '''
-
-    def __init__(self, temp: float, pres: float, gnd_rot_qn: int, ext_rot_qn: int,
-                 states: tuple[int, int]) -> None:
-        self.temp         = temp
-        self.pres         = pres
-        self.gnd_rot_qn   = gnd_rot_qn
-        self.ext_rot_qn   = ext_rot_qn
-        self.states       = states
-
-    def get_fc(self) -> float:
-        '''
-        From the global Franck-Condon data array, grabs the correct FC factor for the current
-        vibrational transition.
-
-        Args:
-            fc_data (np.ndarray): global Franck-Condon array
-
-        Returns:
-            float: Franck-Condon factor for the current vibrational transition
-        '''
-
-        return inp.FC_DATA[self.states[0]][self.states[1]]
-
-    def return_line(self):
-        return selection_rules(self.gnd_rot_qn, self.ext_rot_qn)
-
-    def get_line(self, max_fc: float) -> tuple[float, float]:
-        '''
-        Finds the wavenumbers and intensities for each line in the plot.
-
-        Args:
-            fc_data (np.ndarray): global Franck-Condon array
-            max_fc (float): maximum Franck-Condon factor from all vibrational transitions considered
-
-        Returns:
-            tuple[list, list]: (wavenumbers, intensities)
-        '''
-
-        # Initialize ground and excited states
-        exct_state = energy.State(cn.B_CONSTS, self.states[0])
-        grnd_state = energy.State(cn.X_CONSTS, self.states[1])
-
-        # Calculate the band origin energy
-        if inp.BAND_ORIG[0]:
-            band_origin = inp.BAND_ORIG[1]
-        else:
-            band_origin = energy.get_band_origin(grnd_state, exct_state)
-
-        # Find the valid spectral line
-        lines = selection_rules(self.gnd_rot_qn, self.ext_rot_qn)
-
-        # Get the wavenumber and intensity
-        wns = np.array([line.wavenumber(band_origin, grnd_state, exct_state)
-                        for line in lines])
-        ins = np.array([line.intensity(band_origin, grnd_state, exct_state, self.temp)
-                        for line in lines])
-
-        # Find the ratio between the largest Franck-Condon factor and the current plot
-        norm_fc = self.get_fc() / max_fc
-
-        # This is normalization of the plot with respect to others
-        ins *= norm_fc
-
-        return wns, ins
+import plot
+from molecule import Molecule
+from lif_utils import LifSimulation, plot_lif, plot_lif_info
 
 def main():
-    '''
-    Runs the program.
-    '''
+    """
+    Construct example spectra here.
+    """
 
-    gnd_rot_qn = 21
-    ext_rot_qn = 22
+    temp: float = 300.0
+    pres: float = 101325.0
 
-    ext_vib_qn = 7
-    max_vib_qn = 12
+    upper_band: int = 4
+    lower_band: int = 2
 
-    band_list = []
-    for gnd_vib_qn in range(max_vib_qn + 1):
-        band_list.append(LinePlot(inp.TEMP, inp.PRES, gnd_rot_qn, ext_rot_qn, (ext_vib_qn, gnd_vib_qn)))
+    upper_lif: list[tuple[int, int]] = [(upper_band, v) for v in range(18, -1, -1)]
+    lower_lif: list[tuple[int, int]] = [(lower_band, v) for v in range(18, -1, -1)]
 
-    max_fc = max((band.get_fc() for band in band_list))
+    o2_mol: Molecule = Molecule('o2', 'o', 'o')
 
-    line_data = [band.get_line(max_fc) for band in band_list]
+    o2_up: LifSimulation = LifSimulation(o2_mol, temp, pres, np.arange(0, 36), 'b3su', 'x3sg',
+                                         upper_lif)
 
-    lines = np.array([band.return_line() for band in band_list]).flatten()
+    o2_lo: LifSimulation = LifSimulation(o2_mol, temp, pres, np.arange(0, 36), 'b3su', 'x3sg',
+                                         lower_lif)
 
-    wvnums = np.array([line[0] for line in line_data]).flatten()
-    intens = np.array([line[1] for line in line_data]).flatten()
-    intens /= intens.max()
+    palette: list[tuple] = plt.cycler('color', plt.cm.tab20c.colors).by_key()['color']
+    colors:  list[str]   = [matplotlib.colors.to_hex(color) for color in palette]
 
-    conv_wns, conv_ins = conv.convolved_data(wvnums, intens, inp.TEMP, inp.PRES, lines)
+    plot_lif(o2_up, 12, 13, colors)
+    plot_lif(o2_lo, 16, 15, colors)
+    plot_lif_info(o2_up, 12, 13)
+    plot_lif_info(o2_lo, 16, 15)
+    plot.plot_show()
 
-    # Grab a rainbow colormap from the built-in matplotlib cmaps
-    cmap = plt.get_cmap('rainbow')
-    num_lines = len(wvnums)
+    # NOTE: 06/05/24 - The Franck-Condon factors of all 18 v'' bands sharing the same v' must to be
+    #       considered since their intensities are normalized relative to the highest intensity in
+    #       the given simulation
 
-    # Assign each line a color, each being equally spaced within the colormap
-    colors = [mcolors.to_hex(cmap(i / (num_lines - 1))) for i in range(num_lines)]
+    # Only search the main triplet in non-satellite bands
+    upper_wavenumbers: np.ndarray = np.array([])
+    upper_intensities: np.ndarray = np.array([])
+    upper_lines:       np.ndarray = np.array([])
 
-    _, axs = plt.subplots(1, 1, figsize=(inp.SCREEN_RES[0]/inp.DPI, inp.SCREEN_RES[1]/inp.DPI),
-                          dpi=inp.DPI, sharex=True)
+    lower_wavenumbers: np.ndarray = np.array([])
+    lower_intensities: np.ndarray = np.array([])
+    lower_lines:       np.ndarray = np.array([])
 
-    for i, (wave, intn) in enumerate(zip(wvnums, intens)):
-        _, stemlines, _ = axs.stem((1 / wave) * 1e7, intn, colors[i], markerfmt='')
-        plt.setp(stemlines, 'linewidth', 3)
+    for vib_band in o2_up.vib_bands:
+        upper_wavenumbers = np.concatenate((upper_wavenumbers, vib_band.wavenumbers_line()))
+        upper_intensities = np.concatenate((upper_intensities, vib_band.intensities_line()))
+        upper_lines       = np.concatenate((upper_lines, vib_band.lines))
 
-    axs.set_title(f"Initial Laser Excitation: $(v', v'') = ({ext_vib_qn}, {0})$, \
-                    Emission: $v''_\\mathrm{{max}} = {max_vib_qn}$, $v''_\\mathrm{{min}} = 0$, \
-                    Selected Line: $(N', N'') = ({ext_rot_qn}, {gnd_rot_qn})$")
-    axs.set_ylabel('Normalized Intensity')
+    for vib_band in o2_lo.vib_bands:
+        lower_wavenumbers = np.concatenate((lower_wavenumbers, vib_band.wavenumbers_line()))
+        lower_intensities = np.concatenate((lower_intensities, vib_band.intensities_line()))
+        lower_lines       = np.concatenate((lower_lines, vib_band.lines))
 
-    # Convert from wavenumber to wavelength
-    def wn2wl(wns):
-        return (1 / wns) * 1e7
+    # Now that all the intensities from every band are collected together, we have to normalize both
+    # of them by the same factor, otherwise their relative intensities will not be preserved
+    max_intensity: float = max(upper_intensities.max(), lower_intensities.max())
+    upper_intensities /= max_intensity
+    lower_intensities /= max_intensity
 
-    # Add a secondary axis for wavelength
-    secax = axs.secondary_xaxis('top', functions=(wn2wl, wn2wl))
-    secax.set_xlabel('Wavenumber $\\nu$, [cm$^{-1}$]')
+    # Filter by intensity (can't be done per line since the vibrational bands hold the information
+    # about the normalized intensity of the lines)
+    upper_indices = np.where(upper_intensities > 0.001)
+    lower_indices = np.where(lower_intensities > 0.001)
 
-    # axs[1].plot((1 / conv_wns) * 1e7, conv_ins)
-    axs.set_xlabel('Wavelength $\\nu$, [nm]')
+    upper_wavenumbers = upper_wavenumbers[upper_indices]
+    upper_intensities = upper_intensities[upper_indices]
+    upper_lines       = upper_lines[upper_indices]
 
-    plt.savefig(inp.PLOT_PATH, dpi=inp.DPI * 2)
-    # plt.show()
+    lower_wavenumbers = lower_wavenumbers[lower_indices]
+    lower_intensities = lower_intensities[lower_indices]
+    lower_lines       = lower_lines[lower_indices]
+
+    # Compare all wavenumbers against each other and find nearby lines
+    diff_matrix = np.abs(upper_wavenumbers[:, np.newaxis] - lower_wavenumbers)
+    pair_mask = diff_matrix < 1
+
+    upper_indices, lower_indices = np.where(pair_mask)
+
+    upper_wavenumbers = upper_wavenumbers[upper_indices]
+    upper_intensities = upper_intensities[upper_indices]
+    upper_lines       = upper_lines[upper_indices]
+
+    lower_wavenumbers = lower_wavenumbers[lower_indices]
+    lower_intensities = lower_intensities[lower_indices]
+    lower_lines       = lower_lines[lower_indices]
+
+    upper_wavelengths = plot.wavenum_to_wavelen(upper_wavenumbers)
+    lower_wavelengths = plot.wavenum_to_wavelen(lower_wavenumbers)
+
+    plt.stem(upper_wavelengths, upper_intensities, 'b', markerfmt='')
+    for idx, line in enumerate(upper_lines):
+        plt.text(upper_wavelengths[idx], upper_intensities[idx],
+                 f'v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n'
+                 f'J: {line.rot_qn_up, line.rot_qn_lo}')
+
+    plt.stem(lower_wavelengths, lower_intensities, 'r', markerfmt='')
+    for idx, line in enumerate(lower_lines):
+        plt.text(lower_wavelengths[idx], lower_intensities[idx],
+                 f'v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n'
+                 f'J: {line.rot_qn_up, line.rot_qn_lo}')
+
+    plt.show()
 
 if __name__ == '__main__':
     main()
