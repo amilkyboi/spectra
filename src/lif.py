@@ -25,15 +25,15 @@ def main():
     upper_lif: list[tuple[int, int]] = [(upper_band, v) for v in range(18, -1, -1)]
     lower_lif: list[tuple[int, int]] = [(lower_band, v) for v in range(18, -1, -1)]
 
-    o2_mol: Molecule = Molecule('o2', 'o', 'o')
+    o2_mol: Molecule = Molecule("o2", 'o', 'o')
 
-    o2_up: LifSimulation = LifSimulation(o2_mol, temp, pres, np.arange(0, 36), 'b3su', 'x3sg',
+    o2_up: LifSimulation = LifSimulation(o2_mol, temp, pres, np.arange(0, 36), "b3su", "x3sg",
                                          upper_lif)
 
-    o2_lo: LifSimulation = LifSimulation(o2_mol, temp, pres, np.arange(0, 36), 'b3su', 'x3sg',
+    o2_lo: LifSimulation = LifSimulation(o2_mol, temp, pres, np.arange(0, 36), "b3su", "x3sg",
                                          lower_lif)
 
-    palette: list[tuple] = plt.cycler('color', plt.cm.tab20c.colors).by_key()['color']
+    palette: list[tuple] = plt.cycler("color", plt.cm.tab20c.colors).by_key()["color"]
     colors:  list[str]   = [matplotlib.colors.to_hex(color) for color in palette]
 
     plot_lif(o2_up, 12, 13, colors)
@@ -104,16 +104,16 @@ def main():
     plt.stem(upper_wavelengths, upper_intensities, 'b', markerfmt='')
     for idx, line in enumerate(upper_lines):
         plt.text(upper_wavelengths[idx], upper_intensities[idx],
-                 f'v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n'
-                 f'J: {line.rot_qn_up, line.rot_qn_lo}')
+                 f"v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n"
+                 f"J: {line.rot_qn_up, line.rot_qn_lo}")
 
     plt.stem(lower_wavelengths, lower_intensities, 'r', markerfmt='')
     for idx, line in enumerate(lower_lines):
         plt.text(lower_wavelengths[idx], lower_intensities[idx],
-                 f'v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n'
-                 f'J: {line.rot_qn_up, line.rot_qn_lo}')
+                 f"v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n"
+                 f"J: {line.rot_qn_up, line.rot_qn_lo}")
 
     plt.show()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

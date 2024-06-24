@@ -66,11 +66,11 @@ class Band:
 
         # R branch
         if delta_rot_qn == 1:
-            lines.extend(self.get_branch_idx(rot_qn_up, rot_qn_lo, branch_range, 'r', 'rq'))
+            lines.extend(self.get_branch_idx(rot_qn_up, rot_qn_lo, branch_range, 'r', "rq"))
 
         # P branch
         elif delta_rot_qn == -1:
-            lines.extend(self.get_branch_idx(rot_qn_up, rot_qn_lo, branch_range, 'p', 'pq'))
+            lines.extend(self.get_branch_idx(rot_qn_up, rot_qn_lo, branch_range, 'p', "pq"))
 
         return lines
 
@@ -93,11 +93,11 @@ class Band:
                                       branch_main, self.sim, self, self.sim.molecule))
                 # Satellite branches
                 # RQ31, RQ32, RQ21
-                if (branch_idx_up > branch_idx_lo) & (branch_secondary == 'rq'):
+                if (branch_idx_up > branch_idx_lo) & (branch_secondary == "rq"):
                     lines.append(Line(rot_qn_up, rot_qn_lo, branch_idx_up, branch_idx_lo,
                                       branch_secondary, self.sim, self, self.sim.molecule))
                 # PQ13, PQ23, PQ12
-                elif (branch_idx_up < branch_idx_lo) & (branch_secondary == 'pq'):
+                elif (branch_idx_up < branch_idx_lo) & (branch_secondary == "pq"):
                     lines.append(Line(rot_qn_up, rot_qn_lo, branch_idx_up, branch_idx_lo,
                                       branch_secondary, self.sim, self, self.sim.molecule))
 
@@ -118,7 +118,7 @@ class Band:
                 state:  State = self.sim.state_up
                 vib_qn: int   = self.vib_qn_up
             case _:
-                raise ValueError('Invalid SimType.')
+                raise ValueError("ERROR: invalid SimType.")
 
         return np.exp(-terms.vibrational_term(state, vib_qn) * cn.PLANC * cn.LIGHT /
                       (cn.BOLTZ * self.sim.temp))
@@ -152,7 +152,7 @@ class Band:
 
         # Herzberg p. 151, eq. (IV, 12)
 
-        elc_energy: float = self.sim.state_up.consts['t_e'] - self.sim.state_lo.consts['t_e']
+        elc_energy: float = self.sim.state_up.consts["t_e"] - self.sim.state_lo.consts["t_e"]
 
         vib_energy: float = (terms.vibrational_term(self.sim.state_up, self.vib_qn_up) -
                              terms.vibrational_term(self.sim.state_lo, self.vib_qn_lo))

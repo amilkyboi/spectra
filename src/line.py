@@ -40,8 +40,8 @@ class Line:
         Returns the predissociation value.
         """
 
-        return (self.molecule.prediss[f'f{self.branch_idx_lo}']
-                [self.molecule.prediss['rot_qn'] == self.rot_qn_up].iloc[0])
+        return (self.molecule.prediss[f"f{self.branch_idx_lo}"]
+                [self.molecule.prediss["rot_qn"] == self.rot_qn_up].iloc[0])
 
     def wavenumber(self) -> float:
         """
@@ -75,7 +75,7 @@ class Line:
                 rot_qn:     int   = self.rot_qn_up
                 branch_idx: int   = self.branch_idx_up
             case _:
-                raise ValueError('Invalid SimType.')
+                raise ValueError("ERROR: invalid SimType.")
 
         return np.exp(-terms.rotational_term(state, vib_qn, rot_qn, branch_idx) *
                        cn.PLANC * cn.LIGHT / (cn.BOLTZ * self.sim.temp))
@@ -95,7 +95,7 @@ class Line:
                 line_strength = ((self.rot_qn_lo + 1)**2 - 0.25) / (self.rot_qn_lo + 1)
             case 'p':
                 line_strength = (self.rot_qn_lo**2 - 0.25) / (self.rot_qn_lo)
-            case 'pq' | 'rq':
+            case "pq" | "rq":
                 line_strength = (2 * self.rot_qn_lo + 1) / (4 * self.rot_qn_lo *
                                                             (self.rot_qn_lo + 1))
 
@@ -114,7 +114,7 @@ class Line:
             case SimType.EMISSION | SimType.LIF:
                 wavenumber_factor: float = self.wavenumber()**4
             case _:
-                raise ValueError('Invalid SimType.')
+                raise ValueError("ERROR: invalid SimType.")
 
         # Hönl-London contribution
         intensity: float = wavenumber_factor * self.honl_london_factor()

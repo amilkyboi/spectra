@@ -122,7 +122,7 @@ class LifBand:
         return q_r
 
     def get_band_origin(self) -> float:
-        elc_energy = self.sim.state_up.consts['t_e'] - self.sim.state_lo.consts['t_e']
+        elc_energy = self.sim.state_up.consts["t_e"] - self.sim.state_lo.consts["t_e"]
 
         vib_energy = (terms.vibrational_term(self.sim.state_up, self.vib_qn_up) -
                       terms.vibrational_term(self.sim.state_lo, self.vib_qn_lo))
@@ -164,8 +164,8 @@ class LifLine:
     molecule:      Molecule
 
     def predissociation(self) -> float:
-        return (self.molecule.prediss[f'f{self.branch_idx_lo}']
-                [self.molecule.prediss['rot_qn'] == self.rot_qn_up].iloc[0])
+        return (self.molecule.prediss[f"f{self.branch_idx_lo}"]
+                [self.molecule.prediss["rot_qn"] == self.rot_qn_up].iloc[0])
 
     def wavenumber(self) -> float:
         return (self.band.band_origin +
@@ -216,8 +216,8 @@ def plot_lif_info(sim: LifSimulation, rot_qn_up: int, rot_qn_lo: int) -> None:
 
         for idx, line in enumerate(lines):
             plt.text(wavelengths_line[idx], intensities_line[idx],
-                     f'v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n'
-                     f'J: {line.rot_qn_up, line.rot_qn_lo}')
+                     f"v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n"
+                     f"J: {line.rot_qn_up, line.rot_qn_lo}")
 
 def plot_lif(sim: LifSimulation, rot_qn_up: int, rot_qn_lo: int, colors: list) -> None:
     """
@@ -229,4 +229,4 @@ def plot_lif(sim: LifSimulation, rot_qn_up: int, rot_qn_lo: int, colors: list) -
 
         plt.stem(wavelengths_lif, vib_band.intensities_lif(rot_qn_up, rot_qn_lo), colors[idx],
                  markerfmt='',
-                 label=f'{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} line')
+                 label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} line")

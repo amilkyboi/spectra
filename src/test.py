@@ -13,10 +13,10 @@ from molecule import Molecule
 from simulation import Simulation
 
 def plot_samp(samp_file: str):
-    sample_data = pd.read_csv(f'../data/samples/{samp_file}.csv')
+    sample_data = pd.read_csv(f"../data/samples/{samp_file}.csv")
 
-    wavenumbers = sample_data['wavenumbers'].to_numpy()
-    intensities = sample_data['intensities'].to_numpy()
+    wavenumbers = sample_data["wavenumbers"].to_numpy()
+    intensities = sample_data["intensities"].to_numpy()
     intensities /= intensities.max()
 
     return wavenumbers, intensities
@@ -58,14 +58,14 @@ def broadening_params(sim: Simulation) -> tuple[float, float]:
 temp: float = 300.0
 pres: float = 101325.0
 
-mol_o2 = Molecule('o2', 'o', 'o')
+mol_o2 = Molecule("o2", 'o', 'o')
 
 bands_sim = [(2, 0)]
 
-o2_sim = Simulation(mol_o2, temp, pres, np.arange(0, 36), 'b3su', 'x3sg', bands_sim,
+o2_sim = Simulation(mol_o2, temp, pres, np.arange(0, 36), "b3su", "x3sg", bands_sim,
                     SimType.ABSORPTION)
 
-wns, ins = plot_samp('pgopher')
+wns, ins = plot_samp("pgopher")
 
 cwns = np.linspace(wns.min(), wns.max(), 10000)
 cins = convolve_brod(o2_sim, wns, ins, cwns)

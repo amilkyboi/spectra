@@ -48,7 +48,7 @@ class Simulation:
             case SimType.EMISSION | SimType.LIF:
                 state: State = self.state_up
             case _:
-                raise ValueError('Invalid SimType.')
+                raise ValueError("ERROR: invalid SimType.")
 
         q_v: float = 0.0
 
