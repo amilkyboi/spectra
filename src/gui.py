@@ -8,15 +8,27 @@ from tkinter import ttk
 from typing import Callable
 
 import numpy as np
+import pandas as pd
+from pandastable import Table
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends._backend_tk import NavigationToolbar2Tk
 
 import plot
 from simtype import SimType
 from colors import get_colors
 from molecule import Molecule
 from simulation import Simulation
+
+# I think an internal function within pandastable is using .fillna or a related function that emits
+# "FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will
+# change in a future version."
+#
+# The fixes in the linked thread don't seem to work, which is why I think the issue is internal to
+# pandastable itself. For now, just disable the warning.
+# https://stackoverflow.com/questions/77900971/pandas-futurewarning-downcasting-object-dtype-arrays-on-fillna-ffill-bfill
+pd.set_option('future.no_silent_downcasting', True)
 
 DEFAULT_TEMPERATURE: float = 300.0    # [K]
 DEFAULT_PRESSURE:    float = 101325.0 # [Pa]
@@ -117,23 +129,10 @@ class MolecularSimulationGUI:
 
         # Table ------------------------------------------------------------------------------------
 
-        columns: list[str] = ["rot_qn_up", "rot_qn_lo", "branch_idx_up", "branch_idx_lo"]
-
-        self.table: ttk.Treeview = ttk.Treeview(self.frame_table, columns=columns, show="headings")
-
-        # Set column headings
-        self.table.heading("rot_qn_up", text="J'")
-        self.table.heading("rot_qn_lo", text="J''")
-        self.table.heading("branch_idx_up", text="n'")
-        self.table.heading("branch_idx_lo", text="n''")
-
-        # Set default column widths
-        self.table.column("rot_qn_up", width=50)
-        self.table.column("rot_qn_lo", width=50)
-        self.table.column("branch_idx_up", width=50)
-        self.table.column("branch_idx_lo", width=50)
-
-        self.table.pack(fill=tk.BOTH, expand=True)
+        # Initialize the table with an empty dataframe so that nothing is shown until a simulation
+        # is run by the user
+        self.table = Table(self.frame_table, dataframe=pd.DataFrame(), showtoolbar=True, showstatusbar=True, editable=False)
+        self.table.show()
 
         # Plot -------------------------------------------------------------------------------------
 
@@ -144,6 +143,9 @@ class MolecularSimulationGUI:
         self.plot_canvas: FigureCanvasTkAgg = FigureCanvasTkAgg(self.fig, master=self.frame_plot)
         self.plot_canvas.draw()
         self.plot_canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+        # Show the matplotlib toolbar
+        self.toolbar: NavigationToolbar2Tk = NavigationToolbar2Tk(self.plot_canvas)
 
         # Map plot types to functions
         self.map_functions: dict[str, Callable] = {
@@ -186,15 +188,21 @@ class MolecularSimulationGUI:
         self.axs.legend()
         self.plot_canvas.draw()
 
-        # Test pushing data to table
-        self.table.delete(*self.table.get_children())
+        # Create a dictionary of data for each line
+        data: list[dict] = [
+            {
+                "J'": line.rot_qn_up,
+                "J''": line.rot_qn_lo,
+                "name": line.branch_name,
+                "n'": line.branch_idx_up,
+                "n''": line.branch_idx_lo
+            }
+            for line in simulation.vib_bands[0].lines
+        ]
 
-        data: list[list[str]] = [[f"{line.rot_qn_up}", f"{line.rot_qn_lo}",
-                                  f"{line.branch_idx_up}", f"{line.branch_idx_lo}"]
-                                 for line in simulation.vib_bands[0].lines]
-
-        for item in data:
-            self.table.insert('', tk.END, values=item)
+        # Update the table's internal dataframe model with the new data
+        self.table.model.df = pd.DataFrame(data)
+        self.table.redraw()
 
 def main() -> None:
     """

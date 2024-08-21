@@ -1,5 +1,6 @@
-numpy
-scipy
 matplotlib
+numpy
 pandas
+pandastable
 scienceplots
+scipy
