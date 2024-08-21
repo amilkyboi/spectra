@@ -11,6 +11,18 @@ import plot
 from molecule import Molecule
 from lif_utils import LifSimulation, plot_lif, plot_lif_info
 
+def plot_show() -> None:
+    ax = plt.gca()
+
+    secax = ax.secondary_xaxis("top", functions=(plot.wavenum_to_wavelen, plot.wavenum_to_wavelen))
+    secax.set_xlabel("Wavenumber, $\\nu$ [cm$^{-1}$]")
+
+    plt.xlabel("Wavelength, $\\lambda$ [nm]")
+    plt.ylabel("Intensity, Arbitrary Units [-]")
+
+    plt.legend()
+    plt.show()
+
 def main():
     """
     Construct example spectra here.
@@ -40,7 +52,7 @@ def main():
     plot_lif(o2_lo, 16, 15, colors)
     plot_lif_info(o2_up, 12, 13)
     plot_lif_info(o2_lo, 16, 15)
-    plot.plot_show()
+    plot_show()
 
     # NOTE: 06/05/24 - The Franck-Condon factors of all 18 v'' bands sharing the same v' must to be
     #       considered since their intensities are normalized relative to the highest intensity in
