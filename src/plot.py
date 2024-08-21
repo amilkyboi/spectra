@@ -28,23 +28,6 @@ def wavenum_to_wavelen(x) -> np.ndarray:
 
     return x * 1e7
 
-def plot_show() -> None:
-    """
-    Sets axis labels, creates a secondary x-axis for wavenumbers, displays the legend, and calls the
-    plot.
-    """
-
-    ax = plt.gca()
-
-    secax = ax.secondary_xaxis("top", functions=(wavenum_to_wavelen, wavenum_to_wavelen))
-    secax.set_xlabel("Wavenumber, $\\nu$ [cm$^{-1}$]")
-
-    plt.xlabel("Wavelength, $\\lambda$ [nm]")
-    plt.ylabel("Intensity, Arbitrary Units [-]")
-
-    plt.legend()
-    plt.show()
-
 def plot_samp(samp_file: str, color: str, plot_as: str = "stem") -> None:
     """
     Plots either line data or convolved data from a designated sample file.
@@ -65,30 +48,38 @@ def plot_samp(samp_file: str, color: str, plot_as: str = "stem") -> None:
         case _:
             raise ValueError(f"Invalid value for plot_as: {plot_as}.")
 
-def plot_band_info(sim: Simulation) -> None:
+def plot_band_info(axs: Axes, sim: Simulation, colors: list) -> None:
     """
     Plots information about each vibrational band.
     """
+
+    # In order to show text, a plot must first exist
+    plot_line(axs, sim, colors)
 
     for vib_band in sim.vib_bands:
         wavenumber: float = vib_band.wavenumbers_line()[0]
         wavelength: float = 1 / wavenumber * 1e7
 
-        plt.text(wavelength, 0, f"{vib_band.vib_qn_up, vib_band.vib_qn_lo}")
+        axs.text(wavelength, 0, f"{vib_band.vib_qn_up, vib_band.vib_qn_lo}")
 
-def plot_line_info(sim: Simulation) -> None:
+def plot_line_info(axs: Axes, sim: Simulation, colors: list) -> None:
     """
     Plots information about each rotational line.
     """
 
+    # In order to show text, a plot must first exist
+    plot_line(axs, sim, colors)
+
+    max_intensity: float = sim.all_line_data()[1].max()
+
     for vib_band in sim.vib_bands:
         wavenumbers_line: np.ndarray = vib_band.wavenumbers_line()
         wavelengths_line: np.ndarray = wavenum_to_wavelen(wavenumbers_line)
-        intensities_line: np.ndarray = vib_band.intensities_line()
+        intensities_line: np.ndarray = vib_band.intensities_line() / max_intensity
         lines:            list[Line] = vib_band.lines
 
         for idx, line in enumerate(lines):
-            plt.text(wavelengths_line[idx], intensities_line[idx], f"{line.branch_name}")
+            axs.text(wavelengths_line[idx], intensities_line[idx], f"{line.branch_name}")
 
 def plot_line(axs: Axes, sim: Simulation, colors: list) -> None:
     """

@@ -63,8 +63,7 @@ class MolecularSimulationGUI:
     def __init__(self, root: tk.Tk) -> None:
         self.root: tk.Tk = root
 
-        root.geometry("800x600")
-        root.title("Diatomic Molecular Simulation")
+        self.root.title("Diatomic Molecular Simulation")
 
         # Center the window on the screen
         screen_width:  int = self.root.winfo_screenwidth()
@@ -121,7 +120,7 @@ class MolecularSimulationGUI:
 
         ttk.Label(self.frame_input, text="Plot Type:").pack(side=tk.LEFT, padx=5, pady=5)
         self.plot_type: tk.StringVar = tk.StringVar(value=DEFAULT_PLOTTYPE)
-        ttk.Combobox(self.frame_input, textvariable=self.plot_type, values=("Line", "Convolution")).pack(side=tk.LEFT, padx=5, pady=5)
+        ttk.Combobox(self.frame_input, textvariable=self.plot_type, values=("Line", "Line Info", "Convolution", "Band Info")).pack(side=tk.LEFT, padx=5, pady=5)
 
         # Button -----------------------------------------------------------------------------------
 
@@ -150,7 +149,9 @@ class MolecularSimulationGUI:
         # Map plot types to functions
         self.map_functions: dict[str, Callable] = {
             "Line": plot.plot_line,
+            "Line Info": plot.plot_line_info,
             "Convolution": plot.plot_conv,
+            "Band Info": plot.plot_band_info
         }
 
     def run_simulation(self):
@@ -189,11 +190,11 @@ class MolecularSimulationGUI:
         self.plot_canvas.draw()
 
         # Create a dictionary of data for each line
-        data: list[dict] = [
+        data: list[dict[str, int | str]] = [
             {
                 "J'": line.rot_qn_up,
                 "J''": line.rot_qn_lo,
-                "name": line.branch_name,
+                "branch": line.branch_name,
                 "n'": line.branch_idx_up,
                 "n''": line.branch_idx_lo
             }
