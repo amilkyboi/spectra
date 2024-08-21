@@ -6,6 +6,7 @@ Testing GUI functionality.
 import warnings
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 from typing import Callable
 
 import numpy as np
@@ -196,9 +197,9 @@ class MolecularSimulationGUI:
                     lower_band, upper_band = map(int, range_str.split('-'))
                     bands.append((lower_band, upper_band))
                 except ValueError:
-                    print(f"Invalid band range format: {range_str}")
+                    messagebox.showinfo("Info", f"Invalid band range format: {range_str}")
             else:
-                print(f"Invalid band range format: {range_str}")
+                messagebox.showinfo("Info", f"Invalid band range format: {range_str}")
 
         return bands
 
@@ -232,7 +233,7 @@ class MolecularSimulationGUI:
         if plot_function:
             plot_function(self.axs, simulation, colors)
         else:
-            print(f"Plot type '{plot_type}' is not recognized.")
+            messagebox.showinfo("Info", f"Plot type '{plot_type}' is not recognized.")
 
         self.axs.legend()
         self.plot_canvas.draw()
