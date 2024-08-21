@@ -219,7 +219,7 @@ class MolecularSimulationGUI:
         simulation: Simulation = Simulation(molecule, temperature, pressure, np.arange(0, 36),
                                             "b3su", "x3sg", bands, SimType[sim_type])
 
-        colors: list[str] = get_colors("small", bands)
+        colors: list[str] = get_colors(bands)
 
         # Clear the previously plotted data and reset the axis labels
         self.axs.clear()
