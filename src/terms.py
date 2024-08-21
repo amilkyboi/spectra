@@ -79,7 +79,6 @@ def rotational_term(state: State, vib_qn: int, rot_qn: int, branch_idx: int) -> 
     # TODO: 06/07/24 -  J is only zero when N = 1 and the triplet branch is F3
     # Hanson - Spectroscopy and Optical Diagnostics for Gases, p. 170
 
-
     match branch_idx:
         # F1 triplet
         case 1:

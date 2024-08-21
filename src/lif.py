@@ -105,13 +105,13 @@ def main():
     for idx, line in enumerate(upper_lines):
         plt.text(upper_wavelengths[idx], upper_intensities[idx],
                  f"v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n"
-                 f"J: {line.rot_qn_up, line.rot_qn_lo}")
+                 f"J: {int(line.rot_qn_up), int(line.rot_qn_lo)}")
 
     plt.stem(lower_wavelengths, lower_intensities, 'r', markerfmt='')
     for idx, line in enumerate(lower_lines):
         plt.text(lower_wavelengths[idx], lower_intensities[idx],
                  f"v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n"
-                 f"J: {line.rot_qn_up, line.rot_qn_lo}")
+                 f"J: {int(line.rot_qn_up), int(line.rot_qn_lo)}")
 
     plt.show()
 

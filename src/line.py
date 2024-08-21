@@ -63,19 +63,22 @@ class Line:
 
         # Herzberg p. 125, eq. (III, 164)
 
+        state:      State
+        vib_qn:     int
+        rot_qn:     int
+        branch_idx: int
+
         match self.sim.sim_type:
             case SimType.ABSORPTION:
-                state:      State = self.sim.state_lo
-                vib_qn:     int   = self.band.vib_qn_lo
-                rot_qn:     int   = self.rot_qn_lo
-                branch_idx: int   = self.branch_idx_lo
+                state      = self.sim.state_lo
+                vib_qn     = self.band.vib_qn_lo
+                rot_qn     = self.rot_qn_lo
+                branch_idx = self.branch_idx_lo
             case SimType.EMISSION | SimType.LIF:
-                state:      State = self.sim.state_up
-                vib_qn:     int   = self.band.vib_qn_up
-                rot_qn:     int   = self.rot_qn_up
-                branch_idx: int   = self.branch_idx_up
-            case _:
-                raise ValueError("ERROR: invalid SimType.")
+                state      = self.sim.state_up
+                vib_qn     = self.band.vib_qn_up
+                rot_qn     = self.rot_qn_up
+                branch_idx = self.branch_idx_up
 
         return np.exp(-terms.rotational_term(state, vib_qn, rot_qn, branch_idx) *
                        cn.PLANC * cn.LIGHT / (cn.BOLTZ * self.sim.temp))
@@ -89,6 +92,8 @@ class Line:
 
         # FIXME: 05/07/24 - The Boltzmann factor changes based on emission or absorption, which
         #        presumably means these need to change as well
+
+        line_strength: float
 
         match self.branch_name:
             case 'r':
@@ -108,13 +113,13 @@ class Line:
 
         # Herzberg p. 126, eqs. (III, 169-170)
 
+        wavenumber_factor: float
+
         match self.sim.sim_type:
             case SimType.ABSORPTION:
-                wavenumber_factor: float = self.wavenumber()
+                wavenumber_factor = self.wavenumber()
             case SimType.EMISSION | SimType.LIF:
-                wavenumber_factor: float = self.wavenumber()**4
-            case _:
-                raise ValueError("ERROR: invalid SimType.")
+                wavenumber_factor = self.wavenumber()**4
 
         # Hönl-London contribution
         intensity: float = wavenumber_factor * self.honl_london_factor()

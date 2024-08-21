@@ -64,6 +64,17 @@ def plot_samp(samp_file: str, color: str, plot_as: str = "stem") -> None:
         case _:
             raise ValueError(f"Invalid value for plot_as: {plot_as}.")
 
+def plot_band_info(sim: Simulation) -> None:
+    """
+    Plots information about each vibrational band.
+    """
+
+    for vib_band in sim.vib_bands:
+        wavenumber: float = vib_band.wavenumbers_line()[0]
+        wavelength: float = 1 / wavenumber * 1e7
+
+        plt.text(wavelength, 0, f"{vib_band.vib_qn_up, vib_band.vib_qn_lo}")
+
 def plot_line_info(sim: Simulation) -> None:
     """
     Plots information about each rotational line.
@@ -83,10 +94,13 @@ def plot_line(sim: Simulation, colors: list) -> None:
     Plots each rotational line.
     """
 
+    max_intensity: float = sim.all_line_data()[1].max()
+
     for idx, vib_band in enumerate(sim.vib_bands):
         wavelengths_line: np.ndarray = wavenum_to_wavelen(vib_band.wavenumbers_line())
+        intensities_line: np.ndarray = vib_band.intensities_line() / max_intensity
 
-        plt.stem(wavelengths_line, vib_band.intensities_line(), colors[idx], markerfmt='',
+        plt.stem(wavelengths_line, intensities_line, colors[idx], markerfmt='',
                  label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} line")
 
 def plot_conv(sim: Simulation, colors: list) -> None:
@@ -94,13 +108,11 @@ def plot_conv(sim: Simulation, colors: list) -> None:
     Plots convolved data for each vibrational band separately.
     """
 
+    max_intensity: float = sim.all_conv_data()[1].max()
+
     for idx, vib_band in enumerate(sim.vib_bands):
         wavelengths_conv: np.ndarray = wavenum_to_wavelen(vib_band.wavenumbers_conv())
-
-        # FIXME: 06/05/24 - Temporary normalization for rotational lines in a single band, used for
-        #        comparing against sample data
-        intensities_conv: np.ndarray = vib_band.intensities_conv()
-        intensities_conv /= intensities_conv.max()
+        intensities_conv: np.ndarray = vib_band.intensities_conv() / max_intensity
 
         plt.plot(wavelengths_conv, intensities_conv, colors[idx],
                  label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} conv")
@@ -110,7 +122,7 @@ def plot_conv_all(sim: Simulation, color: str) -> None:
     Plots convolved data for all vibrational bands simultaneously.
     """
 
-    wavenumbers_conv, intensities_conv = sim.all_convolved_data()
+    wavenumbers_conv, intensities_conv = sim.all_conv_data()
     wavelengths_conv: np.ndarray = wavenum_to_wavelen(wavenumbers_conv)
 
     intensities_conv /= intensities_conv.max()
@@ -133,7 +145,7 @@ def plot_inst_all(sim: Simulation, color: str, broadening: float) -> None:
     Plots data convolved with an instrument function for all vibrational bands simultaneously.
     """
 
-    wavenumbers_conv, intensities_conv = sim.all_convolved_data()
+    wavenumbers_conv, intensities_conv = sim.all_conv_data()
     wavelengths_conv: np.ndarray = wavenum_to_wavelen(wavenumbers_conv)
 
     intensities_inst: np.ndarray = convolve.convolve_inst(wavenumbers_conv, intensities_conv,

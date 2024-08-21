@@ -185,6 +185,8 @@ class LifLine:
                        cn.PLANC * cn.LIGHT / (cn.BOLTZ * self.sim.temp))
 
     def honl_london_factor(self) -> float:
+        line_strength: float
+
         match self.branch_name:
             case 'r':
                 line_strength = ((self.rot_qn_lo + 1)**2 - 0.25) / (self.rot_qn_lo + 1)

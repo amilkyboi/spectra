@@ -42,13 +42,13 @@ class Simulation:
 
         # Herzberg p. 123, eq. (III, 159)
 
+        state: State
+
         match self.sim_type:
             case SimType.ABSORPTION:
-                state: State = self.state_lo
+                state = self.state_lo
             case SimType.EMISSION | SimType.LIF:
-                state: State = self.state_up
-            case _:
-                raise ValueError("ERROR: invalid SimType.")
+                state = self.state_up
 
         q_v: float = 0.0
 
@@ -62,7 +62,21 @@ class Simulation:
 
         return q_v
 
-    def all_convolved_data(self) -> tuple[np.ndarray, np.ndarray]:
+    def all_line_data(self) -> tuple[np.ndarray, np.ndarray]:
+        """
+        Combines the line data for all vibrational bands.
+        """
+
+        wavenumbers_line: np.ndarray = np.array([])
+        intensities_line: np.ndarray = np.array([])
+
+        for vib_band in self.vib_bands:
+            wavenumbers_line = np.concatenate((wavenumbers_line, vib_band.wavenumbers_line()))
+            intensities_line = np.concatenate((intensities_line, vib_band.intensities_line()))
+
+        return wavenumbers_line, intensities_line
+
+    def all_conv_data(self) -> tuple[np.ndarray, np.ndarray]:
         """
         Creates common axes for plotting the convolved data of all vibrational bands at once.
         """

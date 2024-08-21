@@ -110,15 +110,16 @@ class Band:
 
         # Herzberg p. 123, eq. (III, 159)
 
+        state: State
+        vib_qn: int
+
         match self.sim.sim_type:
             case SimType.ABSORPTION:
-                state:  State = self.sim.state_lo
-                vib_qn: int   = self.vib_qn_lo
+                state  = self.sim.state_lo
+                vib_qn = self.vib_qn_lo
             case SimType.EMISSION | SimType.LIF:
-                state:  State = self.sim.state_up
-                vib_qn: int   = self.vib_qn_up
-            case _:
-                raise ValueError("ERROR: invalid SimType.")
+                state  = self.sim.state_up
+                vib_qn = self.vib_qn_up
 
         return np.exp(-terms.vibrational_term(state, vib_qn) * cn.PLANC * cn.LIGHT /
                       (cn.BOLTZ * self.sim.temp))
