@@ -79,7 +79,7 @@ def plot_line_info(axs: Axes, sim: Simulation, colors: list) -> None:
         lines:            list[Line] = vib_band.lines
 
         for idx, line in enumerate(lines):
-            axs.text(wavelengths_line[idx], intensities_line[idx], f"{line.branch_name}")
+            axs.text(wavelengths_line[idx], intensities_line[idx], f"${line.branch_name}_{{{line.branch_idx_up}{line.branch_idx_lo}}}$")
 
 def plot_line(axs: Axes, sim: Simulation, colors: list) -> None:
     """
