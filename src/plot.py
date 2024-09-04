@@ -15,18 +15,20 @@ from simulation import Simulation
 
 # plt.style.use(["science", "grid"])
 
+
 def wavenum_to_wavelen(x) -> np.ndarray:
     """
     Converts wavenumbers to wavelengths and vice versa.
     """
 
-    x                     = np.array(x, float)
+    x = np.array(x, float)
     near_zero: np.ndarray = np.isclose(x, 0)
 
-    x[near_zero]  = np.inf
+    x[near_zero] = np.inf
     x[~near_zero] = 1 / x[~near_zero]
 
     return x * 1e7
+
 
 def plot_samp(samp_file: str, color: str, plot_as: str = "stem") -> None:
     """
@@ -42,11 +44,12 @@ def plot_samp(samp_file: str, color: str, plot_as: str = "stem") -> None:
 
     match plot_as:
         case "stem":
-            plt.stem(wavelengths, intensities, color, markerfmt='', label=samp_file)
+            plt.stem(wavelengths, intensities, color, markerfmt="", label=samp_file)
         case "plot":
             plt.plot(wavelengths, intensities, color, label=samp_file)
         case _:
             raise ValueError(f"Invalid value for plot_as: {plot_as}.")
+
 
 def plot_band_info(axs: Axes, sim: Simulation, colors: list) -> None:
     """
@@ -62,6 +65,7 @@ def plot_band_info(axs: Axes, sim: Simulation, colors: list) -> None:
 
         axs.text(wavelength, 0, f"{vib_band.vib_qn_up, vib_band.vib_qn_lo}")
 
+
 def plot_line_info(axs: Axes, sim: Simulation, colors: list) -> None:
     """
     Plots information about each rotational line.
@@ -76,10 +80,15 @@ def plot_line_info(axs: Axes, sim: Simulation, colors: list) -> None:
         wavenumbers_line: np.ndarray = vib_band.wavenumbers_line()
         wavelengths_line: np.ndarray = wavenum_to_wavelen(wavenumbers_line)
         intensities_line: np.ndarray = vib_band.intensities_line() / max_intensity
-        lines:            list[Line] = vib_band.lines
+        lines: list[Line] = vib_band.lines
 
         for idx, line in enumerate(lines):
-            axs.text(wavelengths_line[idx], intensities_line[idx], f"${line.branch_name}_{{{line.branch_idx_up}{line.branch_idx_lo}}}$")
+            axs.text(
+                wavelengths_line[idx],
+                intensities_line[idx],
+                f"${line.branch_name}_{{{line.branch_idx_up}{line.branch_idx_lo}}}$",
+            )
+
 
 def plot_line(axs: Axes, sim: Simulation, colors: list) -> None:
     """
@@ -92,8 +101,14 @@ def plot_line(axs: Axes, sim: Simulation, colors: list) -> None:
         wavelengths_line: np.ndarray = wavenum_to_wavelen(vib_band.wavenumbers_line())
         intensities_line: np.ndarray = vib_band.intensities_line() / max_intensity
 
-        axs.stem(wavelengths_line, intensities_line, colors[idx], markerfmt='',
-                 label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} line")
+        axs.stem(
+            wavelengths_line,
+            intensities_line,
+            colors[idx],
+            markerfmt="",
+            label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} line",
+        )
+
 
 def plot_conv(axs: Axes, sim: Simulation, colors: list) -> None:
     """
@@ -106,8 +121,13 @@ def plot_conv(axs: Axes, sim: Simulation, colors: list) -> None:
         wavelengths_conv: np.ndarray = wavenum_to_wavelen(vib_band.wavenumbers_conv())
         intensities_conv: np.ndarray = vib_band.intensities_conv() / max_intensity
 
-        axs.plot(wavelengths_conv, intensities_conv, colors[idx],
-                 label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} conv")
+        axs.plot(
+            wavelengths_conv,
+            intensities_conv,
+            colors[idx],
+            label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} conv",
+        )
+
 
 def plot_conv_all(sim: Simulation, color: str) -> None:
     """
@@ -121,6 +141,7 @@ def plot_conv_all(sim: Simulation, color: str) -> None:
 
     plt.plot(wavelengths_conv, intensities_conv, color, label=f"{sim.molecule.name} conv all")
 
+
 def plot_inst(sim: Simulation, colors: list, broadening: float) -> None:
     """
     Plots data convolved with an instrument function for each vibrational band separately.
@@ -129,8 +150,13 @@ def plot_inst(sim: Simulation, colors: list, broadening: float) -> None:
     for idx, vib_band in enumerate(sim.vib_bands):
         wavelengths_conv: np.ndarray = wavenum_to_wavelen(vib_band.wavenumbers_conv())
 
-        plt.plot(wavelengths_conv, vib_band.intensities_inst(broadening), colors[idx],
-                 label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} inst")
+        plt.plot(
+            wavelengths_conv,
+            vib_band.intensities_inst(broadening),
+            colors[idx],
+            label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} inst",
+        )
+
 
 def plot_inst_all(sim: Simulation, color: str, broadening: float) -> None:
     """
@@ -140,11 +166,13 @@ def plot_inst_all(sim: Simulation, color: str, broadening: float) -> None:
     wavenumbers_conv, intensities_conv = sim.all_conv_data()
     wavelengths_conv: np.ndarray = wavenum_to_wavelen(wavenumbers_conv)
 
-    intensities_inst: np.ndarray = convolve.convolve_inst(wavenumbers_conv, intensities_conv,
-                                                          broadening)
+    intensities_inst: np.ndarray = convolve.convolve_inst(
+        wavenumbers_conv, intensities_conv, broadening
+    )
     intensities_inst /= intensities_inst.max()
 
     plt.plot(wavelengths_conv, intensities_inst, color, label=f"{sim.molecule.name} inst all")
+
 
 def plot_residual(sim: Simulation, color: str, samp_file: str) -> None:
     """
@@ -166,15 +194,20 @@ def plot_residual(sim: Simulation, color: str, samp_file: str) -> None:
         intensities_sim /= intensities_sim.max()
 
         # Experimental data is held as the baseline, simulated data is linearly interpolated
-        intensities_interp: np.ndarray = np.interp(wavenumbers_samp, wavenumbers_sim,
-                                                   intensities_sim)
+        intensities_interp: np.ndarray = np.interp(
+            wavenumbers_samp, wavenumbers_sim, intensities_sim
+        )
 
-        residual:     np.ndarray = intensities_samp - intensities_interp
+        residual: np.ndarray = intensities_samp - intensities_interp
         abs_residual: np.ndarray = np.abs(residual)
 
         print(f"Max absolute residual: {abs_residual.max()}")
         print(f"Mean absolute residual: {abs_residual.mean()}")
         print(f"Standard deviation: {residual.std()}")
 
-        plt.plot(wavenum_to_wavelen(wavenumbers_samp), residual, color,
-                 label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} residual")
+        plt.plot(
+            wavenum_to_wavelen(wavenumbers_samp),
+            residual,
+            color,
+            label=f"{sim.molecule.name} {vib_band.vib_qn_up, vib_band.vib_qn_lo} residual",
+        )

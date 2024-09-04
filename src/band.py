@@ -19,20 +19,21 @@ from simtype import SimType
 if TYPE_CHECKING:
     from simulation import Simulation
 
+
 class Band:
     """
     A vibrational band containing multiple rotational lines.
     """
 
     def __init__(self, vib_qn_up: int, vib_qn_lo: int, sim: Simulation) -> None:
-        self.vib_qn_up:     int        = vib_qn_up
-        self.vib_qn_lo:     int        = vib_qn_lo
-        self.sim:           Simulation = sim
-        self.band_origin:   float      = self.get_band_origin()
-        self.lines:         list[Line] = self.get_allowed_lines()
-        self.franck_condon: float      = self.sim.molecule.fc_data[self.vib_qn_up][self.vib_qn_lo]
-        self.rot_part:      float      = self.rotational_partition()
-        self.vib_boltz:     float      = self.vib_boltzmann_factor()
+        self.vib_qn_up: int = vib_qn_up
+        self.vib_qn_lo: int = vib_qn_lo
+        self.sim: Simulation = sim
+        self.band_origin: float = self.get_band_origin()
+        self.lines: list[Line] = self.get_allowed_lines()
+        self.franck_condon: float = self.sim.molecule.fc_data[self.vib_qn_up][self.vib_qn_lo]
+        self.rot_part: float = self.rotational_partition()
+        self.vib_boltz: float = self.vib_boltzmann_factor()
 
     def get_allowed_lines(self) -> list[Line]:
         """
@@ -66,16 +67,22 @@ class Band:
 
         # R branch
         if delta_rot_qn == 1:
-            lines.extend(self.get_branch_idx(rot_qn_up, rot_qn_lo, branch_range, 'r', "rq"))
+            lines.extend(self.get_branch_idx(rot_qn_up, rot_qn_lo, branch_range, "r", "rq"))
 
         # P branch
         elif delta_rot_qn == -1:
-            lines.extend(self.get_branch_idx(rot_qn_up, rot_qn_lo, branch_range, 'p', "pq"))
+            lines.extend(self.get_branch_idx(rot_qn_up, rot_qn_lo, branch_range, "p", "pq"))
 
         return lines
 
-    def get_branch_idx(self, rot_qn_up: int, rot_qn_lo: int, branch_range: range, branch_main: str,
-                       branch_secondary: str) -> list[Line]:
+    def get_branch_idx(
+        self,
+        rot_qn_up: int,
+        rot_qn_lo: int,
+        branch_range: range,
+        branch_main: str,
+        branch_secondary: str,
+    ) -> list[Line]:
         """
         Determines the lines included in the transition.
         """
@@ -89,17 +96,47 @@ class Band:
                 # Main branches
                 # R1, R2, R3, P1, P2, P3
                 if branch_idx_up == branch_idx_lo:
-                    lines.append(Line(rot_qn_up, rot_qn_lo, branch_idx_up, branch_idx_lo,
-                                      branch_main, self.sim, self, self.sim.molecule))
+                    lines.append(
+                        Line(
+                            rot_qn_up,
+                            rot_qn_lo,
+                            branch_idx_up,
+                            branch_idx_lo,
+                            branch_main,
+                            self.sim,
+                            self,
+                            self.sim.molecule,
+                        )
+                    )
                 # Satellite branches
                 # RQ31, RQ32, RQ21
                 if (branch_idx_up > branch_idx_lo) & (branch_secondary == "rq"):
-                    lines.append(Line(rot_qn_up, rot_qn_lo, branch_idx_up, branch_idx_lo,
-                                      branch_secondary, self.sim, self, self.sim.molecule))
+                    lines.append(
+                        Line(
+                            rot_qn_up,
+                            rot_qn_lo,
+                            branch_idx_up,
+                            branch_idx_lo,
+                            branch_secondary,
+                            self.sim,
+                            self,
+                            self.sim.molecule,
+                        )
+                    )
                 # PQ13, PQ23, PQ12
                 elif (branch_idx_up < branch_idx_lo) & (branch_secondary == "pq"):
-                    lines.append(Line(rot_qn_up, rot_qn_lo, branch_idx_up, branch_idx_lo,
-                                      branch_secondary, self.sim, self, self.sim.molecule))
+                    lines.append(
+                        Line(
+                            rot_qn_up,
+                            rot_qn_lo,
+                            branch_idx_up,
+                            branch_idx_lo,
+                            branch_secondary,
+                            self.sim,
+                            self,
+                            self.sim.molecule,
+                        )
+                    )
 
         return lines
 
@@ -115,14 +152,18 @@ class Band:
 
         match self.sim.sim_type:
             case SimType.ABSORPTION:
-                state  = self.sim.state_lo
+                state = self.sim.state_lo
                 vib_qn = self.vib_qn_lo
             case SimType.EMISSION | SimType.LIF:
-                state  = self.sim.state_up
+                state = self.sim.state_up
                 vib_qn = self.vib_qn_up
 
-        return np.exp(-terms.vibrational_term(state, vib_qn) * cn.PLANC * cn.LIGHT /
-                      (cn.BOLTZ * self.sim.temp))
+        return np.exp(
+            -terms.vibrational_term(state, vib_qn)
+            * cn.PLANC
+            * cn.LIGHT
+            / (cn.BOLTZ * self.sim.temp)
+        )
 
     def rotational_partition(self) -> float:
         """
@@ -140,7 +181,7 @@ class Band:
             # NOTE: 05/07/24 - The Boltzmann factor and line strengths already change for emission
             #       versus absorption, so this function can remain as-is
             honl_london: float = line.honl_london_factor()
-            boltzmann:   float = line.rot_boltzmann_factor()
+            boltzmann: float = line.rot_boltzmann_factor()
 
             q_r += honl_london * boltzmann
 
@@ -155,8 +196,9 @@ class Band:
 
         elc_energy: float = self.sim.state_up.consts["t_e"] - self.sim.state_lo.consts["t_e"]
 
-        vib_energy: float = (terms.vibrational_term(self.sim.state_up, self.vib_qn_up) -
-                             terms.vibrational_term(self.sim.state_lo, self.vib_qn_lo))
+        vib_energy: float = terms.vibrational_term(
+            self.sim.state_up, self.vib_qn_up
+        ) - terms.vibrational_term(self.sim.state_lo, self.vib_qn_lo)
 
         return elc_energy + vib_energy
 
@@ -196,10 +238,13 @@ class Band:
         Returns an array of convolved intensities.
         """
 
-        intensities_conv: np.ndarray = convolve.convolve_brod(self.sim, self.lines,
-                                                              self.wavenumbers_line(),
-                                                              self.intensities_line(),
-                                                              self.wavenumbers_conv())
+        intensities_conv: np.ndarray = convolve.convolve_brod(
+            self.sim,
+            self.lines,
+            self.wavenumbers_line(),
+            self.intensities_line(),
+            self.wavenumbers_conv(),
+        )
 
         intensities_conv *= self.vib_boltz / self.sim.vib_part
         intensities_conv *= self.franck_condon / self.sim.max_fc
@@ -211,9 +256,9 @@ class Band:
         Returns an array of convolved intensities.
         """
 
-        intensities_inst: np.ndarray = convolve.convolve_inst(self.wavenumbers_conv(),
-                                                              self.intensities_conv(),
-                                                              broadening)
+        intensities_inst: np.ndarray = convolve.convolve_inst(
+            self.wavenumbers_conv(), self.intensities_conv(), broadening
+        )
 
         intensities_inst *= self.vib_boltz / self.sim.vib_part
         intensities_inst *= self.franck_condon / self.sim.max_fc

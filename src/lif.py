@@ -11,6 +11,7 @@ import plot
 from molecule import Molecule
 from lif_utils import LifSimulation, plot_lif, plot_lif_info
 
+
 def plot_show() -> None:
     ax = plt.gca()
 
@@ -22,6 +23,7 @@ def plot_show() -> None:
 
     plt.legend()
     plt.show()
+
 
 def main():
     """
@@ -37,16 +39,18 @@ def main():
     upper_lif: list[tuple[int, int]] = [(upper_band, v) for v in range(18, -1, -1)]
     lower_lif: list[tuple[int, int]] = [(lower_band, v) for v in range(18, -1, -1)]
 
-    o2_mol: Molecule = Molecule("o2", 'o', 'o')
+    o2_mol: Molecule = Molecule("o2", "o", "o")
 
-    o2_up: LifSimulation = LifSimulation(o2_mol, temp, pres, np.arange(0, 36), "b3su", "x3sg",
-                                         upper_lif)
+    o2_up: LifSimulation = LifSimulation(
+        o2_mol, temp, pres, np.arange(0, 36), "b3su", "x3sg", upper_lif
+    )
 
-    o2_lo: LifSimulation = LifSimulation(o2_mol, temp, pres, np.arange(0, 36), "b3su", "x3sg",
-                                         lower_lif)
+    o2_lo: LifSimulation = LifSimulation(
+        o2_mol, temp, pres, np.arange(0, 36), "b3su", "x3sg", lower_lif
+    )
 
     palette: list[tuple] = plt.cycler("color", plt.cm.tab20c.colors).by_key()["color"]
-    colors:  list[str]   = [matplotlib.colors.to_hex(color) for color in palette]
+    colors: list[str] = [matplotlib.colors.to_hex(color) for color in palette]
 
     plot_lif(o2_up, 12, 13, colors)
     plot_lif(o2_lo, 16, 15, colors)
@@ -61,21 +65,21 @@ def main():
     # Only search the main triplet in non-satellite bands
     upper_wavenumbers: np.ndarray = np.array([])
     upper_intensities: np.ndarray = np.array([])
-    upper_lines:       np.ndarray = np.array([])
+    upper_lines: np.ndarray = np.array([])
 
     lower_wavenumbers: np.ndarray = np.array([])
     lower_intensities: np.ndarray = np.array([])
-    lower_lines:       np.ndarray = np.array([])
+    lower_lines: np.ndarray = np.array([])
 
     for vib_band in o2_up.vib_bands:
         upper_wavenumbers = np.concatenate((upper_wavenumbers, vib_band.wavenumbers_line()))
         upper_intensities = np.concatenate((upper_intensities, vib_band.intensities_line()))
-        upper_lines       = np.concatenate((upper_lines, vib_band.lines))
+        upper_lines = np.concatenate((upper_lines, vib_band.lines))
 
     for vib_band in o2_lo.vib_bands:
         lower_wavenumbers = np.concatenate((lower_wavenumbers, vib_band.wavenumbers_line()))
         lower_intensities = np.concatenate((lower_intensities, vib_band.intensities_line()))
-        lower_lines       = np.concatenate((lower_lines, vib_band.lines))
+        lower_lines = np.concatenate((lower_lines, vib_band.lines))
 
     # Now that all the intensities from every band are collected together, we have to normalize both
     # of them by the same factor, otherwise their relative intensities will not be preserved
@@ -90,11 +94,11 @@ def main():
 
     upper_wavenumbers = upper_wavenumbers[upper_indices]
     upper_intensities = upper_intensities[upper_indices]
-    upper_lines       = upper_lines[upper_indices]
+    upper_lines = upper_lines[upper_indices]
 
     lower_wavenumbers = lower_wavenumbers[lower_indices]
     lower_intensities = lower_intensities[lower_indices]
-    lower_lines       = lower_lines[lower_indices]
+    lower_lines = lower_lines[lower_indices]
 
     # Compare all wavenumbers against each other and find nearby lines
     diff_matrix = np.abs(upper_wavenumbers[:, np.newaxis] - lower_wavenumbers)
@@ -104,28 +108,35 @@ def main():
 
     upper_wavenumbers = upper_wavenumbers[upper_indices]
     upper_intensities = upper_intensities[upper_indices]
-    upper_lines       = upper_lines[upper_indices]
+    upper_lines = upper_lines[upper_indices]
 
     lower_wavenumbers = lower_wavenumbers[lower_indices]
     lower_intensities = lower_intensities[lower_indices]
-    lower_lines       = lower_lines[lower_indices]
+    lower_lines = lower_lines[lower_indices]
 
     upper_wavelengths = plot.wavenum_to_wavelen(upper_wavenumbers)
     lower_wavelengths = plot.wavenum_to_wavelen(lower_wavenumbers)
 
-    plt.stem(upper_wavelengths, upper_intensities, 'b', markerfmt='')
+    plt.stem(upper_wavelengths, upper_intensities, "b", markerfmt="")
     for idx, line in enumerate(upper_lines):
-        plt.text(upper_wavelengths[idx], upper_intensities[idx],
-                 f"v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n"
-                 f"J: {int(line.rot_qn_up), int(line.rot_qn_lo)}")
+        plt.text(
+            upper_wavelengths[idx],
+            upper_intensities[idx],
+            f"v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n"
+            f"J: {int(line.rot_qn_up), int(line.rot_qn_lo)}",
+        )
 
-    plt.stem(lower_wavelengths, lower_intensities, 'r', markerfmt='')
+    plt.stem(lower_wavelengths, lower_intensities, "r", markerfmt="")
     for idx, line in enumerate(lower_lines):
-        plt.text(lower_wavelengths[idx], lower_intensities[idx],
-                 f"v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n"
-                 f"J: {int(line.rot_qn_up), int(line.rot_qn_lo)}")
+        plt.text(
+            lower_wavelengths[idx],
+            lower_intensities[idx],
+            f"v: {line.band.vib_qn_up, line.band.vib_qn_lo}\n"
+            f"J: {int(line.rot_qn_up), int(line.rot_qn_lo)}",
+        )
 
     plt.show()
+
 
 if __name__ == "__main__":
     main()
