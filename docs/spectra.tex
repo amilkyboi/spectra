@@ -53,18 +53,18 @@
     \null
     \vspace{\fill}
     \begin{center}
-    \let \footnote \thanks
-      {\LARGE \textbf{Simulation of Molecular Spectra} \par}
-      {\large Theory and Applications}
-      \vskip 1.5em
-      {\large
-        \lineskip .5em
-        \begin{tabular}[t]{c}
-          Nathan Phillips
-        \end{tabular}\par}
-      \vskip 1em
-      {\large \today}
-      \vskip 2em
+        \let \footnote \thanks
+        {\LARGE \textbf{Simulation of Molecular Spectra} \par}
+        {\large Theory and Applications}
+        \vskip 1.5em
+            {\large
+                \lineskip .5em
+                \begin{tabular}[t]{c}
+                    Nathan Phillips
+                \end{tabular}\par}
+        \vskip 1em
+            {\large \today}
+        \vskip 2em
     \end{center}
     \vspace{\fill}
 
@@ -104,27 +104,27 @@
 \chapter{Placeholder}
 
 \begin{align*}
-    P_{11}(J) &= \nu_0^{(1)} + F_1'(J - 1) - F_1''(J) \\
-    Q_{11}(J) &= \nu_0^{(1)} + F_1'(J) - F_1''(J)     \\
-    R_{11}(J) &= \nu_0^{(1)} + F_1'(J + 1) - F_1''(J)
+    P_{11}(J) & = \nu_0^{(1)} + F_1'(J - 1) - F_1''(J) \\
+    Q_{11}(J) & = \nu_0^{(1)} + F_1'(J) - F_1''(J)     \\
+    R_{11}(J) & = \nu_0^{(1)} + F_1'(J + 1) - F_1''(J)
 \end{align*}
 
 \begin{align*}
-    P_{12}(J) &= \nu_0^{(1)} + F_1'(J - 1) - F_2''(J) \\
-    Q_{12}(J) &= \nu_0^{(1)} + F_1'(J) - F_2''(J)     \\
-    R_{12}(J) &= \nu_0^{(1)} + F_1'(J + 1) - F_2''(J)
+    P_{12}(J) & = \nu_0^{(1)} + F_1'(J - 1) - F_2''(J) \\
+    Q_{12}(J) & = \nu_0^{(1)} + F_1'(J) - F_2''(J)     \\
+    R_{12}(J) & = \nu_0^{(1)} + F_1'(J + 1) - F_2''(J)
 \end{align*}
 
 \begin{align*}
-    P_{22}(J) &= \nu_0^{(2)} + F_2'(J - 1) - F_2''(J) \\
-    Q_{22}(J) &= \nu_0^{(2)} + F_2'(J) - F_2''(J)     \\
-    R_{22}(J) &= \nu_0^{(2)} + F_2'(J + 1) - F_2''(J)
+    P_{22}(J) & = \nu_0^{(2)} + F_2'(J - 1) - F_2''(J) \\
+    Q_{22}(J) & = \nu_0^{(2)} + F_2'(J) - F_2''(J)     \\
+    R_{22}(J) & = \nu_0^{(2)} + F_2'(J + 1) - F_2''(J)
 \end{align*}
 
 \begin{align*}
-    P_{21}(J) &= \nu_0^{(2)} + F_2'(J - 1) - F_1''(J) \\
-    Q_{21}(J) &= \nu_0^{(2)} + F_2'(J) - F_1''(J)     \\
-    R_{21}(J) &= \nu_0^{(2)} + F_2'(J + 1) - F_1''(J)
+    P_{21}(J) & = \nu_0^{(2)} + F_2'(J - 1) - F_1''(J) \\
+    Q_{21}(J) & = \nu_0^{(2)} + F_2'(J) - F_1''(J)     \\
+    R_{21}(J) & = \nu_0^{(2)} + F_2'(J + 1) - F_1''(J)
 \end{align*}
 
 \chapter{Multiplet Term Formulas}
@@ -141,16 +141,16 @@ These formulae are valid for any value of $\Lambda$ and $\Sigma$. However, they 
 
 Equation 2.1.1.9
 \begin{align*}
-    F_a(\Lambda, S, Y \gg J(J + 1)) &= \nu_0 + A\Lambda\Sigma + B[J(J + 1) - \Omega^2 + S(S + 1) -\Sigma^2] \\
-    &+ H_a^c(\Lambda, S) + H_a^{ss}(\Lambda, S) + H_a^{sr}(\Lambda, S)
+    F_a(\Lambda, S, Y \gg J(J + 1)) & = \nu_0 + A\Lambda\Sigma + B[J(J + 1) - \Omega^2 + S(S + 1) -\Sigma^2] \\
+                                    & + H_a^c(\Lambda, S) + H_a^{ss}(\Lambda, S) + H_a^{sr}(\Lambda, S)
 \end{align*}
 
 \subsection{Hund's Case (b)}
 
 Equation 2.1.1.10
 \begin{align*}
-    F_b(\Lambda, S, Y \ll N(N + 1)) &= \nu_0 + B[N(N + 1) - \Lambda^2] + A\Lambda^2\frac{J(J + 1) - N(N + 1) - S(S + 1)}{2N(N + 1)} \\
-    &+ H_b^c(\Lambda) + H_b^{ss}(\Lambda, S) + H_b^{sr}(\Lambda, S)
+    F_b(\Lambda, S, Y \ll N(N + 1)) & = \nu_0 + B[N(N + 1) - \Lambda^2] + A\Lambda^2\frac{J(J + 1) - N(N + 1) - S(S + 1)}{2N(N + 1)} \\
+                                    & + H_b^c(\Lambda) + H_b^{ss}(\Lambda, S) + H_b^{sr}(\Lambda, S)
 \end{align*}
 
 \section{Singlet Terms}
@@ -168,8 +168,8 @@ For $\state{2}{\Sigma}$ terms, $\Lambda = 0$ and $Y = 0$ (p. 63).
 
 Equation 2.1.3.15
 \begin{align*}
-    F_{J - \tfrac{1}{2}}(N) = F_1(N) &= \nu_0 + B_\Sigma N(N + 1) - D_\Sigma N^2(N + 1)^2 + \tfrac{1}{2}\gamma N \\
-    F_{J + \tfrac{1}{2}}(N) = F_2(N) &= \nu_0 + B_\Sigma N(N + 1) - D_\Sigma N^2(N + 1)^2 - \tfrac{1}{2}\gamma(N + 1)
+    F_{J - \tfrac{1}{2}}(N) = F_1(N) & = \nu_0 + B_\Sigma N(N + 1) - D_\Sigma N^2(N + 1)^2 + \tfrac{1}{2}\gamma N      \\
+    F_{J + \tfrac{1}{2}}(N) = F_2(N) & = \nu_0 + B_\Sigma N(N + 1) - D_\Sigma N^2(N + 1)^2 - \tfrac{1}{2}\gamma(N + 1)
 \end{align*}
 
 \chapter{Intensity Distribution in Rotational Bands}
@@ -182,28 +182,28 @@ The following equations used in the intensity factors for triplets. For a $\stat
 
 Equation 2.1.4.9
 \begin{align*}
-    u_1^\pm(J) &= \sqrt{\Lambda^2Y(Y - 4) + 4J^2} \pm \Lambda(Y - 2) \\
-    u_3^\pm(J) &= \sqrt{\Lambda^2Y(Y - 4) + 4(J + 1)^2} \pm \Lambda(Y - 2)
+    u_1^\pm(J) & = \sqrt{\Lambda^2Y(Y - 4) + 4J^2} \pm \Lambda(Y - 2)       \\
+    u_3^\pm(J) & = \sqrt{\Lambda^2Y(Y - 4) + 4(J + 1)^2} \pm \Lambda(Y - 2)
 \end{align*}
 
 Equation 2.1.4.10
 \begin{align*}
-    C_1(J) &= \Lambda^2Y(Y - 4)(J - \Lambda + 1)(J + \Lambda) + 2(2J + 1)(J - \Lambda)J(J + \Lambda) \\
-    C_2(J) &= \Lambda^2Y(Y - 4) + 4J(J + 1) \\
-    C_3(J) &= \Lambda^2Y(Y - 4)(J - \Lambda)(J + \Lambda + 1) + 2(2J + 1)(J - \Lambda + 1)(J + 1)(J + \Lambda + 1)
+    C_1(J) & = \Lambda^2Y(Y - 4)(J - \Lambda + 1)(J + \Lambda) + 2(2J + 1)(J - \Lambda)J(J + \Lambda)               \\
+    C_2(J) & = \Lambda^2Y(Y - 4) + 4J(J + 1)                                                                        \\
+    C_3(J) & = \Lambda^2Y(Y - 4)(J - \Lambda)(J + \Lambda + 1) + 2(2J + 1)(J - \Lambda + 1)(J + 1)(J + \Lambda + 1)
 \end{align*}
 
 For a Hund's case (b) $\state{3}{\Sigma}\dash\state{3}{\Sigma}$ transition, these become
 \begin{align*}
-    u_1^\pm(J) &= 2J \\
-    u_3^\pm(J) &= 2(J + 1)
+    u_1^\pm(J) & = 2J       \\
+    u_3^\pm(J) & = 2(J + 1)
 \end{align*}
 
 And
 \begin{align*}
-    C_1(J) &= 2J^3(2J + 1) \\
-    C_2(J) &= 4J(J + 1) \\
-    C_3(J) &= 2(J + 1)^3(2J + 1)
+    C_1(J) & = 2J^3(2J + 1)       \\
+    C_2(J) & = 4J(J + 1)          \\
+    C_3(J) & = 2(J + 1)^3(2J + 1)
 \end{align*}
 
 Table 3.8
@@ -212,11 +212,11 @@ Table 3.8
     \caption{Line strengths of triplet transitions for a Hund's case (b) $\state{3}{\Sigma}\dash\state{3}{\Sigma}$ transition.}
     \begin{tabular}{cc}
         \toprule
-        Branches & Line Strength \\
+        Branches & Line Strength                                                                                                                          \\
         \midrule
-        $P_1(J)$ & $\dfrac{J[(J^2 - 1)u'^+_1(J - 1)u''^+_1(J) + (J^2 - 1)u'^-_1(J - 1)u''^-_1(J) + 8J^2(J - 1)^2]^2}{16C'_1(J - 1)C''_1(J)}$ \\
+        $P_1(J)$ & $\dfrac{J[(J^2 - 1)u'^+_1(J - 1)u''^+_1(J) + (J^2 - 1)u'^-_1(J - 1)u''^-_1(J) + 8J^2(J - 1)^2]^2}{16C'_1(J - 1)C''_1(J)}$              \\
         \addlinespace[0.5em]
-        $Q_1(J)$ & $\dfrac{(2J + 1)[-J(J + 1)u'^+_1(J)u''^+_1(J) + J(J + 1)u'^-_1(J)u''^-_1(J)]^2}{16J(J + 1)C'_1(J)C''_1(J)}$ \\
+        $Q_1(J)$ & $\dfrac{(2J + 1)[-J(J + 1)u'^+_1(J)u''^+_1(J) + J(J + 1)u'^-_1(J)u''^-_1(J)]^2}{16J(J + 1)C'_1(J)C''_1(J)}$                            \\
         \addlinespace[0.5em]
         $R_1(J)$ & $\dfrac{(J + 1)^2[J(J + 2)u'^+_1(J + 1)u''^+_1(J) + J(J + 2)u'^-_1(J + 1)u''^-_1(J) + 8J^2(J + 1)^2]^2}{16(J + 1)C'_1(J + 1)C''_1(J)}$ \\
         \bottomrule
@@ -227,56 +227,113 @@ Table 3.8
 
 \section{Term Values}
 
-\section{H\"onl-London Factors}
+From \textit{Molecular Spectroscopic Constants of O$_2$ (B$\state{3}{\Sigma}^-_u$): The Upper State of the Schumann--Runge Bands} by Cheung, Eq. (3):
+\begin{equation*}
+    T(v') = T_0 + \omega_e\ab(v' + \tfrac{1}{2}) - \omega_ex_e\ab(v' + \tfrac{1}{2})^2 + \omega_ey_e\ab(v' + \tfrac{1}{2})^3 + \omega_ez_e\ab(v' + \tfrac{1}{2})^4 + \omega_ea_e\ab(v' + \tfrac{1}{2})^5
+\end{equation*}
+
+Same source, Eq. (4):
+\begin{equation*}
+    B(v') = B_e - \alpha_e\ab(v' + \tfrac{1}{2}) + \gamma_e\ab(v' + \tfrac{1}{2})^2 + \delta_e\ab(v' + \tfrac{1}{2})^3
+\end{equation*}
+
+Same source, Table 1:
+\begin{equation*}
+    x = J(J + 1)
+\end{equation*}
+\begin{equation*}
+    T + Bx - Dx^2 + \tfrac{2}{3}\lambda - \gamma + \tfrac{2}{3}x\lambda_D - x\gamma_D
+\end{equation*}
+\begin{equation*}
+    \bmx{T + B(x + 2) - D(x^2 + 8x + 4) - \tfrac{4}{3}\lambda - 2\gamma - \tfrac{4}{3}\lambda_D(x + 2) - 4\gamma_D(x + 1) & -2\sqrt{x}\ab[B - 2D(x + 1) - \tfrac{\gamma}{2} - \tfrac{2}{3}\lambda_D - \tfrac{1}{2}\gamma_D(x + 4)] \\
+        \text{sym.} & T + Bx - D(x^2 + 4x) + \tfrac{2}{3}\lambda - \gamma + \tfrac{2}{3}x\lambda_D - 3x\gamma_D}
+\end{equation*}
+
+\section{H\"onl--London Factors}
+
+From \textit{H\"onl--London Factors for $\state{3}{\Sigma}^\pm\dash\state{3}{\Sigma}^\pm$ Transitions} by Tatum, Table 1:
+\begin{table}[H]
+    \centering
+    \caption{H\"onl--London Factors for $\state{3}{\Sigma}^\pm\dash\state{3}{\Sigma}^\pm$ Transitions}
+    \begin{tabular}{ccc}
+        \toprule
+        Branch              & Emission                                & Absorption                                 \\
+        \midrule
+        $P_1$               & $\dfrac{(N' + 1)(2N' + 5)}{2N' + 3}$    & $\dfrac{N''(2N'' + 3)}{2N'' + 1}$          \\
+        \addlinespace[0.5em]
+        $R_1$               & $\dfrac{N'(2N' + 3)}{2N' + 1}$          & $\dfrac{(N'' + 1)(2N'' + 5)}{2N'' + 3}$    \\
+        \addlinespace[0.5em]
+        $\state{P}{R}_{13}$ & $\dfrac{1}{(N' + 1)(2N' + 1)(2N' + 3)}$ & $\dfrac{1}{N''(2N'' - 1)(2N'' + 1)}$       \\
+        \addlinespace[0.5em]
+        $\state{P}{Q}_{12}$ & $\dfrac{1}{N' + 1}$                     & $\dfrac{1}{N''}$                           \\
+        \addlinespace[0.5em]
+        $P_2$               & $\dfrac{N'(N' + 2)}{N' + 1}$            & $\dfrac{(N'' - 1)(N'' + 1)}{N''}$          \\
+        \addlinespace[0.5em]
+        $R_2$               & $\dfrac{(N' - 1)(N' + 1)}{N'}$          & $\dfrac{N''(N'' + 2)}{N'' + 1}$            \\
+        \addlinespace[0.5em]
+        $\state{P}{Q}_{23}$ & $\dfrac{1}{N' + 1}$                     & $\dfrac{1}{N''}$                           \\
+        \addlinespace[0.5em]
+        $\state{R}{Q}_{21}$ & $\dfrac{1}{N'}$                         & $\dfrac{1}{N'' + 1}$                       \\
+        \addlinespace[0.5em]
+        $P_3$               & $\dfrac{(N' + 1)(2N' - 1)}{2N' + 1}$    & $\dfrac{N''(2N'' - 3)}{2N'' - 1}$          \\
+        \addlinespace[0.5em]
+        $R_3$               & $\dfrac{N'(2N' - 3)}{2N' - 1}$          & $\dfrac{(N'' + 1)(2N'' - 1)}{2N'' + 1}$    \\
+        \addlinespace[0.5em]
+        $\state{R}{Q}_{32}$ & $\dfrac{1}{N'}$                         & $\dfrac{1}{N'' + 1}$                       \\
+        \addlinespace[0.5em]
+        $\state{R}{P}_{31}$ & $\dfrac{1}{N'(2N' - 1)(2N' + 1)}$       & $\dfrac{1}{(N'' + 1)(2N'' + 1)(2N'' + 3)}$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 \section{Spectral Lineshapes}
 
 \subsection{Lorentzian Profile}
 
-From \textit{A Student's Guide to Atomic Physics} by Fox, eq. (3.31) and \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, eq. (8.7):
+From \textit{A Student's Guide to Atomic Physics} by Fox, Eq. (3.31) and \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, Eq. (8.7):
 \begin{equation*}
-    L(\nu) = \frac{1}{2\pi}\frac{\adif{\nu}}{(\nu - \nu_0)^2 + (\adif{\nu}/2)^2}
+    \phi_L(\nu) = \frac{1}{2\pi}\frac{\adif{\nu}}{(\nu - \nu_0)^2 + (\adif{\nu}/2)^2}
 \end{equation*}
 
-From \textit{A Student's Guide to Atomic Physics} by Fox, eq. (3.32) and \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, eq. (8.6):
+From \textit{A Student's Guide to Atomic Physics} by Fox, Eq. (3.32) and \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, Eq. (8.6):
 \begin{equation*}
     \adif{\nu} = \frac{1}{2\pi}\ab(\frac{1}{\tau'} + \frac{1}{\tau''})
 \end{equation*}
 
 \subsection{Natural Broadening}
 
-From \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, eq. (8.11):
+From \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, Eq. (8.11):
 \begin{equation*}
     \adif{\nu}_N = \frac{1}{2\pi}\ab(\sum_k A_{ik} + \sum_k A_{jk})
 \end{equation*}
 
 \subsection{Collisional Broadening}
 
-From \textit{A Student's Guide to Atomic Physics} by Fox, eq. (3.35) and \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, eq. (8.17):
+From \textit{A Student's Guide to Atomic Physics} by Fox, Eq. (3.35) and \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, Eq. (8.17):
 \begin{equation*}
     \adif{\nu}_C = \frac{p\sigma_c}{2\pi}\sqrt{\frac{8}{\pi\mu_{12}k_BT}}
 \end{equation*}
 
-From \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, eq. (8.12) and Plasma Physics Slideset 5, page 5:
+From \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, Eq. (8.12) and Plasma Physics Slideset 5, page 5:
 \begin{equation*}
-    \sigma_c = \pi d_{12}^2 = \pi\frac{d_1 + d_2}{2}
+    \sigma_c = \pi d_{12}^2 = \pi\ab(\frac{d_1 + d_2}{2})^2
 \end{equation*}
 
-From \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, eq. (8.15):
+From \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, Eq. (8.15):
 \begin{equation*}
     \mu_{12} = \frac{m_1m_2}{m_1 + m_2}
 \end{equation*}
 
 \subsection{Gaussian Profile}
 
-From \textit{A Student's Guide to Atomic Physics} by Fox, eq. (3.42) and \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, eq. (8.22):
+From \textit{A Student's Guide to Atomic Physics} by Fox, Eq. (3.42) and \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, Eq. (8.22):
 \begin{equation*}
-    G(\nu) = \frac{2}{\adif{\nu}}\sqrt{\frac{\ln{2}}{\pi}}\exp\ab[-4\ln{2}\ab(\frac{\nu - \nu_0}{\adif{\nu}})^2]
+    \phi_G(\nu) = \frac{2}{\adif{\nu}}\sqrt{\frac{\ln{2}}{\pi}}\exp\ab[-4\ln{2}\ab(\frac{\nu - \nu_0}{\adif{\nu}})^2]
 \end{equation*}
 
 \subsection{Doppler Broadening}
 
-From \textit{A Student's Guide to Atomic Physics} by Fox, eq. (3.43) and \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, eq. (8.24):
+From \textit{A Student's Guide to Atomic Physics} by Fox, Eq. (3.43) and \textit{Spectroscopy and Optical Diagnostics for Gases} by Hanson, Eq. (8.24):
 \begin{equation*}
     \adif{\nu}_D = \nu_0\sqrt{\frac{8kT\ln{2}}{mc^2}}
 \end{equation*}
