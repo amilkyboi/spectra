@@ -237,17 +237,60 @@ Same source, Eq. (4):
     B(v') = B_e - \alpha_e\ab(v' + \tfrac{1}{2}) + \gamma_e\ab(v' + \tfrac{1}{2})^2 + \delta_e\ab(v' + \tfrac{1}{2})^3
 \end{equation*}
 
-Same source, Table 1:
+The Hamiltonian is, Cheung Eq. (1):
+\begin{equation*}
+    \sop{H} = B\vb{N}^2 + \tfrac{2}{3}\lambda(3S_z^2 - \vb{S}^2) + \gamma\vb{N}\vdot\vb{S}
+\end{equation*}
+where
+\begin{equation*}
+    \vb{N} = \vb{J} - \vb{S}
+\end{equation*}
+
+Which can be expressed as (Wilheit, 1969 Eq. 1)
+\begin{align*}
+    \sop{H} & = B\pmx{J(J - 1)                                 & 0                                & 0 \\ 0 & (J + 1)(J + 2) & 0 \\ 0 & 0 & J(J + 1)} \\
+            & + \lambda\pmx{\tfrac{-2J}{2J + 1} + \tfrac{2}{3} & \tfrac{2\sqrt{J(J + 1)}}{2J + 1} & 0 \\ \tfrac{2\sqrt{J(J + 1)}}{2J + 1} & \tfrac{-2(J + 1)}{2J + 1} + \tfrac{2}{3} & 0 \\ 0 & 0 & \tfrac{2}{3}} \\
+            & + \gamma\pmx{J - 1                               & 0                                & 0 \\ 0 & -(J + 2) & 0 \\ 0 & 0 & 1}
+\end{align*}
+where (Krupiene Appendix C)
+\begin{align*}
+    B       & = B_0 + B_1N(N + 1)             \\
+    \lambda & = \lambda_0 + \lambda_1N(N + 1) \\
+    \gamma  & = \gamma_0 + \gamma_1N(N + 1)
+\end{align*}
+Note that $B_1 = -D_0$
+
+Cheung, Table 1:
 \begin{equation*}
     x = J(J + 1)
 \end{equation*}
+
 \begin{equation*}
-    T + Bx - Dx^2 + \tfrac{2}{3}\lambda - \gamma + \tfrac{2}{3}x\lambda_D - x\gamma_D
+    F_2 = T + Bx - Dx^2 + \tfrac{2}{3}\lambda - \gamma + \tfrac{2}{3}\lambda_Dx - \gamma_Dx
 \end{equation*}
+
+The matrix elements of the Hamiltonian are symmetric
 \begin{equation*}
-    \bmx{T + B(x + 2) - D(x^2 + 8x + 4) - \tfrac{4}{3}\lambda - 2\gamma - \tfrac{4}{3}\lambda_D(x + 2) - 4\gamma_D(x + 1) & -2\sqrt{x}\ab[B - 2D(x + 1) - \tfrac{\gamma}{2} - \tfrac{2}{3}\lambda_D - \tfrac{1}{2}\gamma_D(x + 4)] \\
-        \text{sym.} & T + Bx - D(x^2 + 4x) + \tfrac{2}{3}\lambda - \gamma + \tfrac{2}{3}x\lambda_D - 3x\gamma_D}
+    \bmx{H_{11} & H_{12} \\ H_{21} & H_{22}}
 \end{equation*}
+where
+\begin{align*}
+    H_{11} & = T + B(x + 2) - D(x^2 + 8x + 4) - \tfrac{4}{3}\lambda - 2\gamma - \tfrac{4}{3}\lambda_D(x + 2) - 4\gamma_D(x + 1) \\
+    H_{12} & = -2\sqrt{x}\ab[B - 2D(x + 1) - \tfrac{\gamma}{2} - \tfrac{2}{3}\lambda_D - \tfrac{1}{2}\gamma_D(x + 4)]           \\
+    H_{21} & = H_{12}                                                                                                           \\
+    H_{22} & = T + Bx - D(x^2 + 4x) + \tfrac{2}{3}\lambda - \gamma + \tfrac{2}{3}x\lambda_D - 3x\gamma_D
+\end{align*}
+The eigenvalues are
+\begin{align*}
+    F_1, F_3 = & -\tfrac{3}{2}\gamma - \tfrac{7}{2}\gamma_D x - 2 \gamma_D - \tfrac{1}{3}\lambda - \tfrac{1}{3}\lambda_D x - \tfrac{4}{3}\lambda_D + B x + B - D x^2 - 6 D x - 2 D + T                     \\
+               & \pm \tfrac{1}{6}\bigl(36 \gamma^2 x + 9 \gamma^2 + 72 \gamma \gamma_D x^2 + 306 \gamma \gamma_D x + 72 \gamma \gamma_D + 36 \gamma \lambda + 132 \gamma \lambda_D x + 48 \gamma \lambda_D \\
+               & - 144 \gamma B x - 36 \gamma B + 288 \gamma D x^2 + 360 \gamma D x + 72 \gamma D + 36 \gamma_D^2 x^{3} + 297 \gamma_D^2 x^2 + 648 \gamma_D^2 x                                            \\
+               & + 144 \gamma_D^2 + 36 \gamma_D \lambda x + 144 \gamma_D \lambda + 132 \gamma_D \lambda_D x^2 + 576 \gamma_D \lambda_D x + 192 \gamma_D \lambda_D - 144 \gamma_D B x^2                     \\
+               & - 612 \gamma_D B x - 144 \gamma_D B + 288 \gamma_D D x^{3} + 1512 \gamma_D D x^2 + 1512 \gamma_D D x + 288 \gamma_D D + 36 \lambda^2                                                      \\
+               & + 72 \lambda \lambda_D x + 96 \lambda \lambda_D - 72 \lambda B + 144 \lambda D x + 144 \lambda D + 36 \lambda_D^2 x^2 + 160 \lambda_D^2 x + 64 \lambda_D^2                                \\
+               & - 264 \lambda_D B x - 96 \lambda_D B + 528 \lambda_D D x^2 + 720 \lambda_D D x + 192 \lambda_D D + 144 B^2 x + 36 B^2                                                                     \\
+               & - 576 B D x^2 - 720 B D x - 144 B D + 576 D^2 x^{3} + 1296 D^2 x^2 + 864 D^2 x + 144 D^2\bigr)^{1/2}
+\end{align*}
 
 \section{H\"onl--London Factors}
 
