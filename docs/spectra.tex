@@ -265,7 +265,7 @@ From Babou, 2009:
 \end{equation*}
 where
 \begin{align*}
-    G = \omega_e\ab(v + \tfrac{1}{2}) & - \omega_ex_e\ab(v + \tfrac{1}{2})^2 + \omega_ey_e\ab(v + \tfrac{1}{2})^3 + \omega_ez_e\ab(v + \tfrac{1}{2})^4 + \omega_ea_e\ab(v + \tfrac{1}{2})^5 \\
+    G = \omega_e\ab(v + \tfrac{1}{2}) & - \omega_ex_e\ab(v + \tfrac{1}{2})^2 + \omega_ey_e\ab(v + \tfrac{1}{2})^3 + \omega_ez_e\ab(v + \tfrac{1}{2})^4 + \omega_ea_e\ab(v + \tfrac{1}{2})^5          \\
                                       & + \omega_eb_e\ab(v + \tfrac{1}{2})^6 + \omega_ec_e\ab(v + \tfrac{1}{2})^7 + \omega_ed_e\ab(v + \tfrac{1}{2})^8 + \omega_ee_e\ab(v + \tfrac{1}{2})^9 + \dotsb
 \end{align*}
 and (generally)
@@ -298,8 +298,21 @@ where
 
 Which can be expressed as (Wilheit, 1969 Eq. 1)
 \begin{align*}
-    \sop{H} = B\pmx{J(J - 1) & 0                  & 0     \\ 0 & (J + 1)(J + 2) & 0 \\ 0 & 0 & J(J + 1)} & + \lambda\pmx{\tfrac{-2J}{2J + 1} + \tfrac{2}{3} & \tfrac{2\sqrt{J(J + 1)}}{2J + 1} & 0 \\ \tfrac{2\sqrt{J(J + 1)}}{2J + 1} & \tfrac{-2(J + 1)}{2J + 1} + \tfrac{2}{3} & 0 \\ 0 & 0 & \tfrac{2}{3}} \\
-                             & + \gamma\pmx{J - 1 & 0 & 0 \\ 0 & -(J + 2) & 0 \\ 0 & 0 & 1}
+    \sop{H} = B\pmx{
+    J(J - 1)                           & 0                                        & 0            \\
+    (J + 1)(J + 2)                     & 0                                                       \\
+    0                                  & 0                                        & J(J + 1)
+    }
+                                       & + \lambda\pmx{
+    \tfrac{-2J}{2J + 1} + \tfrac{2}{3} & \tfrac{2\sqrt{J(J + 1)}}{2J + 1}         & 0            \\
+    \tfrac{2\sqrt{J(J + 1)}}{2J + 1}   & \tfrac{-2(J + 1)}{2J + 1} + \tfrac{2}{3} & 0            \\
+    0                                  & 0                                        & \tfrac{2}{3}
+    }                                                                                            \\
+                                       & + \gamma\pmx{
+    J - 1                              & 0                                        & 0            \\
+    0                                  & -(J + 2)                                 & 0            \\
+    0                                  & 0                                        & 1
+    }
 \end{align*}
 where (Krupiene Appendix C)
 \begin{align*}
@@ -452,6 +465,8 @@ From Herzberg, Eq. (VI, 58): (non-degenerate only?)
 
 \section{Partition Functions}
 
+\subsection{General Form}
+
 General form of the Boltzmann population distribution Hanson Eq. (1.11):
 \begin{equation*}
     \frac{N_i}{N} = \frac{g_i\exp\ab(-\frac{\varepsilon_i}{kT})}{Q}
@@ -460,19 +475,48 @@ General form of the partition function Hanson Eq. (1.12):
 \begin{equation*}
     Q = \sum_i g_i\exp\ab(-\frac{\varepsilon_i}{kT})
 \end{equation*}
-
-The total molecular partition function can be expressed as the product of the individual electronic, vibrational, rotational, and nuclear components for symmetric molecules Hanson Eq. (5.4):
+The total molecular partition function can be expressed as the product of the individual translational, electronic, vibrational, rotational, and nuclear components for symmetric molecules Hanson Eq. (5.4):
 \begin{equation*}
-    Q = Q_eQ_vQ_rQ_n
+    Q = Q_tQ_eQ_vQ_rQ_n
 \end{equation*}
+
+\subsection{Nuclear}
+
 Nuclear partition function for a molecule Hanson Eq. (5.9):
 \begin{equation*}
     Q_n = \prod_{i = 1}^L (2I_n + 1)
 \end{equation*}
+
+\subsection{Rotational}
+Because of the rotational symmetry of certain molecules, a symmetry parameter $\sigma$ must be added to the rotational partition function to account for the multiple molecular orientations that are indistinguishable.
+Herzberg Eq. (III, 164):
+\begin{equation*}
+    Q_r = \frac{1}{\sigma} \sum g_r\exp\ab(-\frac{\varepsilon_r}{kT})
+\end{equation*}
+The degeneracy of each state is
+\begin{equation*}
+    g_r = 2J + 1
+\end{equation*}
+and the rotational energy can be expressed as the term value
+\begin{equation*}
+    \varepsilon_r = F(J)hc.
+\end{equation*}
+Therefore, the rotational partition function is
+\begin{equation*}
+    Q_r = \frac{1}{\sigma} \sum (2J + 1)\exp\ab(-\frac{F(J)hc}{kT}).
+\end{equation*}
+For sufficiently large $T$ or small $B$,
 Rotational partition function for a molecule in the high-temperature limit Hanson Eq. (2.21) and Herzberg Eq. (III, 166):
 \begin{equation*}
-    Q_r = \frac{1}{\sigma}\frac{kT}{hcB}
+    Q_r \approx \frac{1}{\sigma} \int_{0}^{\infty} (2J + 1)\exp\ab(-\frac{BJ(J + 1)hc}{kT}) \odif{J} = \frac{1}{\sigma}\frac{kT}{hcB}
 \end{equation*}
+The Boltzmann fraction is then
+\begin{equation*}
+    \frac{N_J}{N} = \frac{(2J + 1)\exp\ab(-\frac{F(J)hc}{kT})}{Q_r}
+\end{equation*}
+
+\subsection{Effective Rotational}
+
 The effective rotational partition function for symmetric molecules is Hanson Eq. (5.5):
 \begin{equation*}
     Q'_r = Q_rQ_n
@@ -482,24 +526,106 @@ Similarly, the effective rotational degeneracy is Hanson Eq. (5.6):
     g'_r = g_rg_n
 \end{equation*}
 
+\subsection{Vibrational}
+
+Herzberg Eq. (III, 159)
+\begin{equation*}
+    Q_v = \sum g_v\exp\ab(-\frac{\varepsilon_v}{kT})
+\end{equation*}
+The vibrational degeneracy of each state is
+\begin{equation*}
+    g_v = 1,
+\end{equation*}
+and the vibrational energy can be expressed as the term value
+\begin{equation*}
+    \varepsilon_v = G(v)hc.
+\end{equation*}
+Therefore, the vibrational partition function is
+\begin{equation*}
+    Q_v = \sum \exp\ab(-\frac{G(v)hc}{kT}).
+\end{equation*}
+The Boltzmann fraction is then
+\begin{equation*}
+    \frac{N_v}{N} = \frac{\exp\ab(-\frac{G(v)hc}{kT})}{Q_v}
+\end{equation*}
+
+\subsection{Electronic}
+
+Anderson Eq. (11.56)
+\begin{equation*}
+    Q_e = \sum g_e\exp\ab(-\frac{\varepsilon}{kT})
+\end{equation*}
+The electronic degeneracy depends on the individual states. The electronic energy can be expressed as the term value
+\begin{equation*}
+    \varepsilon_e = T_ehc.
+\end{equation*}
+Therefore, the electronic partition function is
+\begin{equation*}
+    Q_e = \sum g_e\exp\ab(-\frac{T_ehc}{kT}).
+\end{equation*}
+
+\subsection{Translation}
+
+Anderson Eq. (11.53)
+\begin{equation*}
+    Q_t = \ab(\frac{2\pi mkT}{h^2})^{3/2}V,
+\end{equation*}
+where $V$ is the volume of the system.
+
 \section{Rate Equations}
+
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
-        \draw[thick] (0,0) -- (4,0) node[midway,below] {$E_1$};
-        \draw[thick] (0,3) -- (4,3) node[midway,above] {$E_2$};
+        \draw[thick] (6,0) -- (0,0) node[left] {$X\state{3}{\Sigma}_g^-(v'', J'') \quad N_1$};
+        \draw[thick] (6,6) -- (0,6) node[left] {$B\state{3}{\Sigma}_u^-(v', J') \quad N_2$};
 
-        \draw[->,ultra thick] (2,0) -- (2,3) node[midway,right] {$B_{12}$};
+        \draw[->,ultra thick] (1,6) -- (1,0) node[midway,left] {$W_a$};
+        \draw[->,ultra thick] (1.5,6) -- (2,7) node[midway,left] {$W_d$};
+        \node at(2,7.2) {O$_2 \rightarrow 2$O};
+        \draw[->,ultra thick] (2,0) -- (2,6) node[midway,left] {$W_e$};
+        \draw[->,ultra thick,decorate,decoration={snake,segment length=5mm}] (3,6) -- (3,0) node[midway,left] {$W_{21}$};
+        \draw[->,ultra thick] (4,6) -- (4,1) node[midway,left] {$W_q$};
+        \draw[thick] (3.5,1) -- (4.5,1) node[right] {$v \neq v''$};
+        \draw[->,ultra thick,decorate,decoration={snake, segment length=5mm}] (5,6) -- (5,2) node[midway,left] {$W_f$};
+        \draw[thick] (4.5,2) -- (5.5,2) node[right] {$v \neq v''$};
 
-        \draw[->,ultra thick,decorate,decoration={snake,amplitude=2mm,segment length=8mm}] (3,3) -- (3,0)
-        node[midway,right] {$A_{21}$};
+        \draw[<-,ultra thick] (6.2,6.1) -- (7.8,6.4) node[midway,above] {$R_{32}$};
+        \draw[thick] (8,6.4) -- (10,6.4);
+        \draw[thick] (8,6) -- (10,6) node[right] {$N_3$};
+        \draw[thick] (8,5.6) -- (10,5.6);
+        \draw[->,ultra thick] (6.2,5.9) -- (7.8,5.6) node[midway,below] {$R_{23}$};
 
-        \draw[->,ultra thick,dashed] (1,3) -- (1,0) node[midway,left] {$B_{21}$};
+        \draw[->,ultra thick,decorate,decoration={snake,segment length=5mm}] (9,6) -- (9,2) node[midway,left] {$W_f$};
+        \draw[thick] (8.5,2) -- (9.5,2) node[right] {$v \neq v''$};
 
-        \draw[->,ultra thick] (3.5,3) .. controls (4.5,2) .. (3.5,0)
-        node[midway,right] {Quenching (Non-radiative)};
+        \draw[<-,ultra thick] (6.2,0.1) -- (7.8,0.4) node[midway,above] {$R_{41}$};
+        \draw[thick] (8,0.4) -- (10,0.4);
+        \draw[thick] (8,0) -- (10,0) node[right] {$N_4$};
+        \draw[thick] (8,-0.4) -- (10,-0.4);
+        \draw[->,ultra thick] (6.2,-0.1) -- (7.8,-0.4) node[midway,below] {$R_{14}$};
     \end{tikzpicture}
 \end{figure}
+
+\subsection{Four-level LIF}
+
+Gristead thesis, Eq. (2.9)
+\begin{align*}
+    \odv{N_1}{t} & = -(W_a + R_{14})N_1 + (W_e + W_{21})N_2 + R_{41}N_4                \\
+    \odv{N_2}{t} & = W_aN_1 - (W_f + W_d + W_q + W_e + W_{21} + R_{23})N_2 + R_{32}N_3 \\
+    \odv{N_3}{t} & = R_{23}N_2 - (W_f + R_{32})N_3                                     \\
+    \odv{N_4}{t} & = R_{14}N_1 - R_{41}N_4
+\end{align*}
+$W_a$ is the laser-stimulated absorption rate, $W_e$ the laser-stimulated emission rate, $W_{21}$ the spontaneous emission rate, $W_d$ the predissociation rate, $W_q$ the collisional quenching rate, $W_f$ the fluorescent radiative decay rate, and $R_{ij}$ the rotational energy transfer rates.
+
+\subsection{Three-level LIF}
+
+Diskin, 1996 Eqs. (1-3)
+\begin{align*}
+    \odv{N_1}{t} & = -W_aN_1 + (W_e + W_{21})N_2 + W_c\ab(\frac{f_b}{1 - f_b}N_3 - N_1) \\
+    \odv{N_2}{t} & = W_aN_1 - (W_e + W_d + W_{21} + W_f + W_q)N_2                       \\
+    \odv{N_3}{t} & = -W_c\ab(\frac{f_b}{1 - f_b}N_3 - N_1)
+\end{align*}
 
 \appendix
 \chapter{Diatomic Constants}
