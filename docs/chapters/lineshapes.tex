@@ -41,11 +41,11 @@ and
     \begin{tikzpicture}
         \begin{axis}[axis lines=left, legend style={fill=none, draw=none}]
             \addplot[color=p1, smooth]
-            {1/(1*sqrt(2*pi))*exp(-((x-0)^{2})/(2*1^{2}))};
+            {1/(1*sqrt(2*pi))*exp(-((x-0)^2)/(2*1^2))};
             \addlegendentry{Gaussian}
 
             \addplot[color=p2, smooth]
-            {1/pi*(1/((x-0)^{2}+1^{2}))};
+            {1/pi*(1/((x-0)^2+1^2))};
             \addlegendentry{Lorentzian}
 
             \addplot gnuplot[color=p3, smooth, no marks]

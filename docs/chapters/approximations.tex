@@ -65,7 +65,7 @@ is the reduced mass of the molecule.
 
 The appropriate Schr\"odinger Equation for the rigid rotator has $m = \mu$ and $V = 0$ since the model is regarded as perfectly rigid. Solving
 \begin{equation*}
-    \odv[2]{\psi}{x} + \pdv[2]{\psi}{y} + \pdv[2]{\psi}{z} + \frac{8\pi^{2}\mu}{h^{2}}E\psi = 0
+    \pdv[2]{\psi}{x} + \pdv[2]{\psi}{y} + \pdv[2]{\psi}{z} + \frac{8\pi^{2}\mu}{h^{2}}E\psi = 0
 \end{equation*}
 leads to the energy eigenvalues given by
 \begin{equation*}
@@ -75,9 +75,9 @@ where $J$ is the rotational quantum number. The quantized angular momentum can b
 \begin{equation*}
     L = \sqrt{2EI} = \frac{h}{2\pi}\sqrt{J(J + 1)}.
 \end{equation*}
-The angular velocity $\omega$ and rotational frequency $\nu\_{rot}$ can also be found as
+The angular velocity $\omega$ and rotational frequency $\nu\subtxt{rot}$ can also be found as
 \begin{equation*}
-    \omega = \frac{h}{2\pi I}\sqrt{J(J + 1)} \quad\text{and}\quad \nu\_{rot} = \frac{\omega}{2\pi} = \frac{h}{4\pi^{2}I}\sqrt{J(J + 1)}.
+    \omega = \frac{h}{2\pi I}\sqrt{J(J + 1)} \quad\text{and}\quad \nu\subtxt{rot} = \frac{\omega}{2\pi} = \frac{h}{4\pi^{2}I}\sqrt{J(J + 1)}.
 \end{equation*}
 
 \subsection{Spectrum}
@@ -116,7 +116,7 @@ Writing $J$ instead of $J''$ when only the $J$ value of the lower state occurs, 
 \end{equation*}
 The rotational frequency of the rigid rotator is
 \begin{equation*}
-    \nu\_{rot} = 2cB\sqrt{J(J + 1)}.
+    \nu\subtxt{rot} = 2cB\sqrt{J(J + 1)}.
 \end{equation*}
 
 \section{The Harmonic Oscillator}
@@ -130,16 +130,16 @@ In classical mechanics, the equation of motion for a simple harmonic oscillator 
 \end{equation*}
 where $F$ is the force experienced by the particle toward the equilibrium position which is proportional to the distance $x$ away from the equilibrium position. Solving the differential equation for $x$ yields
 \begin{equation*}
-    x = x_{0}\sin(2\pi t\nu\_{vib} + \varphi),
+    x = x_{0}\sin(2\pi t\nu\subtxt{vib} + \varphi),
 \end{equation*}
-where the vibrational frequency $\nu\_{vib}$ is given by
+where the vibrational frequency $\nu\subtxt{vib}$ is given by
 \begin{equation*}
-    \nu\_{vib} = \frac{1}{2\pi}\sqrt{\frac{k}{m}}.
+    \nu\subtxt{vib} = \frac{1}{2\pi}\sqrt{\frac{k}{m}}.
 \end{equation*}
 
 The potential energy for a linear spring is
 \begin{equation*}
-    V = \frac{1}{2}kx^{2} = 2\pi^{2}mx^{2}\nu\_{vib}^{2}
+    V = \frac{1}{2}kx^{2} = 2\pi^{2}mx^{2}\nu\subtxt{vib}^{2}
 \end{equation*}
 
 The restoring force exerted by the two atoms in a molecule after being displaced from their equilibrium position $r_{e}$ can be modeled by the equation of motion for a spring as
@@ -160,7 +160,7 @@ which is equivalent to
 \end{equation*}
 since $r_{e}$ is constant. From direct comparison with the classical equation of motion for a harmonic oscillator, it follows that the vibrational frequency of the molecule is
 \begin{equation*}
-    \nu\_{vib} = \frac{1}{2\pi}\sqrt{\frac{k}{\mu}}.
+    \nu\subtxt{vib} = \frac{1}{2\pi}\sqrt{\frac{k}{\mu}}.
 \end{equation*}
 
 \subsection{Energy Levels}
@@ -171,13 +171,13 @@ The Schr\"odinger equation for the harmonic oscillator is
 \end{equation*}
 Solving this equation leads to the energy eigenvalues given by
 \begin{equation*}
-    E(v) = \frac{h}{2\pi}\sqrt{\frac{k}{\mu}}\ab(v + \tfrac{1}{2}) = h\nu\_{vib}\ab(v + \tfrac{1}{2}) \quad\text{for}\quad v = 0, 1, 2, \dotsb.
+    E(v) = \frac{h}{2\pi}\sqrt{\frac{k}{\mu}}\ab(v + \tfrac{1}{2}) = h\nu\subtxt{vib}\ab(v + \tfrac{1}{2}) \quad\text{for}\quad v = 0, 1, 2, \dotsb.
 \end{equation*}
 Rewriting the energy as the vibrational term value $G(v)$ gives
 \begin{equation*}
-    G(v) = \frac{E(v)}{hc} = \frac{\nu\_{vib}}{c}\ab(v + \tfrac{1}{2}) = \omega\ab(v + \tfrac{1}{2}),
+    G(v) = \frac{E(v)}{hc} = \frac{\nu\subtxt{vib}}{c}\ab(v + \tfrac{1}{2}) = \omega\ab(v + \tfrac{1}{2}),
 \end{equation*}
-where the quantity $\nu\_{vib}/c$ is designated $\omega$ and measured in \unit{cm^{-1}}.
+where the quantity $\nu\subtxt{vib}/c$ is designated $\omega$ and measured in \unit{cm^{-1}}.
 
 \subsection{Spectrum}
 
@@ -209,13 +209,13 @@ where $f$ and $g$ are coefficients, with $g$ being much smaller than $f$. Better
 
 The motion of the anharmonic oscillator can be represented as a superposition of fundamental and overtone vibrations as the following Fourier series:
 \begin{equation*}
-    x = x_{01}\sin{2\pi\nu\_{vib}t} + x_{02}(3 + \cos{2\pi2\nu\_{vib}t}) + x_{03}\sin{2\pi3\nu\_{vib}t} + \dotsb.
+    x = x_{01}\sin{2\pi\nu\subtxt{vib}t} + x_{02}(3 + \cos{2\pi2\nu\subtxt{vib}t}) + x_{03}\sin{2\pi3\nu\subtxt{vib}t} + \dotsb.
 \end{equation*}
 In this expression, $x_{01}$, $x_{02}$, and $x_{03}$ are the amplitudes of the fundamental, the first, and the second overtone, respectively. If the anharmonicity is small $(g \ll f)$, then $x_{02} \ll x_{01}$ and $x_{03} \ll x_{02}$. However, $x_{02}$ and $x_{03}$ are proportional to the square and cube of $x_{01}$, respectively and rapidly become more important as $x_{01}$ increases. Because of the asymmetric potential curve, the time average of the position is not at $x = 0$, but instead at $x = 3x_{02}$.
 
 The frequency of the vibrations is given as
 \begin{equation*}
-    \nu\_{vib} = \frac{1}{2\pi}\sqrt{\frac{k}{\mu}}
+    \nu\subtxt{vib} = \frac{1}{2\pi}\sqrt{\frac{k}{\mu}}
 \end{equation*}
 for very small amplitudes only. This factor decreases slowly as the amplitude $x_{01}$ increases.
 
@@ -250,7 +250,7 @@ can also appear with decreasing intensity.
 
 The formula for the series of absorption bands $1\dash0$, $2\dash0$, $3\dash0$, $\dotsb$ is given as
 \begin{equation*}
-    \nu\_{abs} = G(v') - G(0) = G_{0}(v') = \omega_{0}v' - \omega_{0}x_{0}v'^{2} + \omega_{0}y_{0}v'^{3} + \dotsb.
+    \nu\subtxt{abs} = G(v') - G(0) = G_{0}(v') = \omega_{0}v' - \omega_{0}x_{0}v'^{2} + \omega_{0}y_{0}v'^{3} + \dotsb.
 \end{equation*}
 
 \section{The Nonrigid Rotator}
