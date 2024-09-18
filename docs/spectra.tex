@@ -183,8 +183,8 @@ The following equations used in the intensity factors for triplets. For a $\stat
 
 Equation 2.1.4.9
 \begin{align*}
-    u_{1}^\pm(J) & = \sqrt{\Lambda^{2}Y(Y - 4) + 4J^{2}} \pm \Lambda(Y - 2)       \\
-    u_{3}^\pm(J) & = \sqrt{\Lambda^{2}Y(Y - 4) + 4(J + 1)^{2}} \pm \Lambda(Y - 2)
+    u_{1}^{\pm}(J) & = \sqrt{\Lambda^{2}Y(Y - 4) + 4J^{2}} \pm \Lambda(Y - 2)       \\
+    u_{3}^{\pm}(J) & = \sqrt{\Lambda^{2}Y(Y - 4) + 4(J + 1)^{2}} \pm \Lambda(Y - 2)
 \end{align*}
 
 Equation 2.1.4.10
@@ -196,8 +196,8 @@ Equation 2.1.4.10
 
 For a Hund's case (b) $\state{3}{\Sigma}\dash\state{3}{\Sigma}$ transition, these become
 \begin{align*}
-    u_{1}^\pm(J) & = 2J       \\
-    u_{3}^\pm(J) & = 2(J + 1)
+    u_{1}^{\pm}(J) & = 2J       \\
+    u_{3}^{\pm}(J) & = 2(J + 1)
 \end{align*}
 
 And
@@ -384,7 +384,7 @@ Furthermore, for $N = 0$ in $B\state{3}{\Sigma}_{u}^{-}(v')$, only the $F_1$ lev
 
 Dunham series expansion from Herzberg, p. 108:
 \begin{equation*}
-    T = \sum_{\ell j}Y_{\ell j}\ab(v + \tfrac{1}{2})^\ell [J(J + 1)]^{j}
+    T = \sum_{\ell j}Y_{\ell j}\ab(v + \tfrac{1}{2})^{\ell} [J(J + 1)]^{j}
 \end{equation*}
 
 Coefficients From Babou, 2009:
@@ -393,18 +393,18 @@ Coefficients From Babou, 2009:
     \caption{Dunham Expansion Coefficients}
     \begin{tabular}{c|ccccc}
         \toprule
-        $\ell$ & $j = 0$           & $j = 1$           & $j = 2$      & $j = 3$ & $j = 4$ \\
+        $\ell$ & $j = 0$            & $j = 1$           & $j = 2$      & $j = 3$ & $j = 4$ \\
         \midrule
-        0      & $Y_{00}$          & $B_{e}$           & $-D_{e}$     & $H_{e}$ & $L_{e}$ \\
-        1      & $-\omega_{e}$     & $-\alpha_{e}$     & $-\beta_{e}$ &         &         \\
-        2      & $\omega_{e}x_{e}$ & $\gamma_{e}$      & $-g_{e}$     &         &         \\
-        3      & $\omega_{e}y_{e}$ & $\delta_{e}$      & $-h_{e}$     &         &         \\
-        4      & $\omega_{e}z_{e}$ & $\varepsilon_{e}$ & $-k_{e}$     &         &         \\
-        5      & $\omega_{e}a_{e}$ & $\xi_{e}$         &              &         &         \\
-        6      & $\omega_{e}b_{e}$ & $\eta_{e}$        &              &         &         \\
-        7      & $\omega_{e}c_{e}$ & $\theta_{e}$      &              &         &         \\
-        8      & $\omega_{e}d_{e}$ &                   &              &         &         \\
-        9      & $\omega_{e}e_{e}$ &                   &              &         &         \\
+        0      & $Y_{00}$           & $B_{e}$           & $-D_{e}$     & $H_{e}$ & $L_{e}$ \\
+        1      & $\omega_{e}$       & $-\alpha_{e}$     & $-\beta_{e}$ &         &         \\
+        2      & $-\omega_{e}x_{e}$ & $\gamma_{e}$      & $-g_{e}$     &         &         \\
+        3      & $\omega_{e}y_{e}$  & $\delta_{e}$      & $-h_{e}$     &         &         \\
+        4      & $\omega_{e}z_{e}$  & $\varepsilon_{e}$ & $-k_{e}$     &         &         \\
+        5      & $\omega_{e}a_{e}$  & $\xi_{e}$         &              &         &         \\
+        6      & $\omega_{e}b_{e}$  & $\eta_{e}$        &              &         &         \\
+        7      & $\omega_{e}c_{e}$  & $\theta_{e}$      &              &         &         \\
+        8      & $\omega_{e}d_{e}$  &                   &              &         &         \\
+        9      & $\omega_{e}e_{e}$  &                   &              &         &         \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -425,7 +425,7 @@ where
 \end{align*}
 and (generally)
 \begin{equation*}
-    F = B_{v}J(J + 1) + D_{v}[J(J + 1)]^{2} + H_{v}[J(J + 1)]^{3} + \dotsb
+    F = B_{v}J(J + 1) - D_{v}[J(J + 1)]^{2} + H_{v}[J(J + 1)]^{3} + L_{v}[J(J + 1)]^{4} + \dotsb
 \end{equation*}
 
 The rotational constants are
@@ -441,8 +441,12 @@ and
 \begin{equation*}
     H_{v} = H_{e} + \dotsb
 \end{equation*}
+and
+\begin{equation*}
+    L_{v} = L_{e} + \dotsb
+\end{equation*}
 
-From \textit{Molecular Spectroscopic Constants of O$_{2}$ (B$\state{3}{\Sigma}^{-}_{u}$): The Upper State of the Schumann--Runge Bands} by Cheung, Eq. (1):
+From \textit{Molecular Spectroscopic Constants of \ce{O2} ($B\state{3}{\Sigma}^{-}_{u}$): The Upper State of the Schumann--Runge Bands} by Cheung, Eq. (1):
 \begin{equation*}
     \sop{H} = B\vb{N}^{2} + \tfrac{2}{3}\lambda(3S_{z}^{2} - \vb{S}^{2}) + \gamma\vb{N}\vdot\vb{S}
 \end{equation*}
@@ -510,10 +514,10 @@ The eigenvalues are
 
 \section{H\"onl--London Factors}
 
-From \textit{H\"onl--London Factors for $\state{3}{\Sigma}^\pm\dash\state{3}{\Sigma}^\pm$ Transitions} by Tatum, Table 1:
+From \textit{H\"onl--London Factors for $\state{3}{\Sigma}^{\pm}\dash\state{3}{\Sigma}^{\pm}$ Transitions} by Tatum, Table 1:
 \begin{table}[H]
     \centering
-    \caption{H\"onl--London Factors for $\state{3}{\Sigma}^\pm\dash\state{3}{\Sigma}^\pm$ Transitions}
+    \caption{H\"onl--London Factors for $\state{3}{\Sigma}^{\pm}\dash\state{3}{\Sigma}^{\pm}$ Transitions}
     \begin{tabular}{ccc}
         \toprule
         Branch              & Emission                                & Absorption                                 \\
@@ -760,11 +764,12 @@ where $V$ is the volume of the system.
         \draw[thick] (8,-0.4) -- (10,-0.4);
         \draw[->,ultra thick] (6.2,-0.1) -- (7.8,-0.4) node[midway,fill=bgcolor] {$R_{14}$};
     \end{tikzpicture}
+    \caption{Four-level LIF model for the Schumann--Runge bands of molecular oxygen.}
 \end{figure}
 
 \subsection{Four-level LIF}
 
-Gristead thesis, Eq. (2.9)
+Grinstead thesis, Eq. (2.9)
 \begin{align*}
     \odv{N_{1}}{t} & = -(W_{a} + R_{14})N_{1} + (W_{e} + W_{21})N_{2} + R_{41}N_{4}                      \\
     \odv{N_{2}}{t} & = W_{a}N_{1} - (W_{f} + W_{d} + W_{q} + W_{e} + W_{21} + R_{23})N_{2} + R_{32}N_{3} \\
@@ -798,32 +803,32 @@ Diskin, 1996 Eqs. (1-3)
         \midrule
         \multicolumn{4}{c}{\textit{Electronic}}                                                            \\
         \cmidrule(lr){1-4}
-        $T_{e}$           & $0$                          & $49793.28$                   & $\unit{cm^{-1}}$ \\
+        $T_{e}$           & \num{0}                      & \num{49793.28}               & \unit{cm^{-1}}   \\
         \multicolumn{4}{c}{\textit{Vibrational}}                                                           \\
         \cmidrule(lr){1-4}
-        $\omega_{e}$      & $1580.19_{3}$                & $709.31$                     & $\unit{cm^{-1}}$ \\
-        $\omega_{e}x_{e}$ & $11.98_{1}$                  & $10.65$                      & $\unit{cm^{-1}}$ \\
-        $\omega_{e}y_{e}$ & $0.0474_{7}$                 & $-0.139$                     & $\unit{cm^{-1}}$ \\
-        $\omega_{e}z_{e}$ & $-0.00127_{3}$               & $-$                          & $\unit{cm^{-1}}$ \\
+        $\omega_{e}$      & \num{1580.19(3)}             & \num{709.31}                 & \unit{cm^{-1}}   \\
+        $\omega_{e}x_{e}$ & \num{11.98(1)}               & \num{10.65}                  & \unit{cm^{-1}}   \\
+        $\omega_{e}y_{e}$ & \num{0.0474(7)}              & \num{-0.139}                 & \unit{cm^{-1}}   \\
+        $\omega_{e}z_{e}$ & \num{-0.00127(3)}            &                              & \unit{cm^{-1}}   \\
         \multicolumn{4}{c}{\textit{Rotational}}                                                            \\
         \cmidrule(lr){1-4}
-        $B_{e}$           & $[1.4376766]$                & $0.8190_{2}$                 & $\unit{cm^{-1}}$ \\
-        $\alpha_{e}$      & $0.0159_{3}$                 & $0.01206$                    & $\unit{cm^{-1}}$ \\
-        $\gamma_{e}$      & $-$                          & $-5.5_{6}\times\num{e-4}$    & $\unit{cm^{-1}}$ \\
-        $\delta_{e}$      & $-$                          & $-$                          & $\unit{cm^{-1}}$ \\
+        $B_{e}$           & \num{1.4376766}              & \num{0.8190(2)}              & \unit{cm^{-1}}   \\
+        $\alpha_{e}$      & \num{0.0159(3)}              & \num{0.01206}                & \unit{cm^{-1}}   \\
+        $\gamma_{e}$      &                              & \num{-5.5(6)e-4}             & \unit{cm^{-1}}   \\
+        $\delta_{e}$      &                              &                              & \unit{cm^{-1}}   \\
         \multicolumn{4}{c}{\textit{Centrifugal Distortion}}                                                \\
         \cmidrule(lr){1-4}
-        $D_{e}$           &                              &                              & $\unit{cm^{-1}}$ \\
-        $\beta_{e}$       &                              &                              & $\unit{cm^{-1}}$ \\
+        $D_{e}$           &                              &                              & \unit{cm^{-1}}   \\
+        $\beta_{e}$       &                              &                              & \unit{cm^{-1}}   \\
         \multicolumn{4}{c}{\textit{Spin-Splitting}}                                                        \\
         \cmidrule(lr){1-4}
-        $\lambda$         &                              &                              & $\unit{cm^{-1}}$ \\
-        $\gamma$          &                              &                              & $\unit{cm^{-1}}$ \\
+        $\lambda$         &                              &                              & \unit{cm^{-1}}   \\
+        $\gamma$          &                              &                              & \unit{cm^{-1}}   \\
         \multicolumn{4}{c}{\textit{Other}}                                                                 \\
         \cmidrule(lr){1-4}
-        $H_{e}$           &                              &                              & $\unit{cm^{-1}}$ \\
-        $r_{e}$           &                              &                              & \AA              \\
-        $\nu_{00}$        &                              &                              & $\unit{cm^{-1}}$ \\
+        $H_{e}$           &                              &                              & \unit{cm^{-1}}   \\
+        $r_{e}$           &                              &                              & \unit{\angstrom} \\
+        $\nu_{00}$        &                              &                              & \unit{cm^{-1}}   \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -837,37 +842,37 @@ Diskin, 1996 Eqs. (1-3)
     \label{t:notation}
     \begin{tabular}{clc}
         \toprule
-        Symbol            & Definition                                                                  & Units            \\
+        Symbol            & Definition                                                                   & Units            \\
         \midrule
-        \multicolumn{3}{c}{\textit{Electronic}}                                                                            \\
+        \multicolumn{3}{c}{\textit{Electronic}}                                                                             \\
         \cmidrule(lr){1-3}
-        $T_{e}$           & Minimum electronic energy                                                   & $\unit{cm^{-1}}$ \\
-        \multicolumn{3}{c}{\textit{Vibrational}}                                                                           \\
+        $T_{e}$           & Minimum electronic energy                                                    & \unit{cm^{-1}}   \\
+        \multicolumn{3}{c}{\textit{Vibrational}}                                                                            \\
         \cmidrule(lr){1-3}
-        $G$               & Vibrational energy                                                          & $\unit{cm^{-1}}$ \\
-        $\omega_{e}$      & Vibrational constant - first term                                           & $\unit{cm^{-1}}$ \\
-        $\omega_{e}x_{e}$ & Vibrational constant - second term                                          & $\unit{cm^{-1}}$ \\
-        $\omega_{e}y_{e}$ & Vibrational constant - third term                                           & $\unit{cm^{-1}}$ \\
-        $\omega_{e}z_{e}$ & Vibrational constant - fourth term                                          & $\unit{cm^{-1}}$ \\
-        \multicolumn{3}{c}{\textit{Rotational}}                                                                            \\
+        $G$               & Vibrational energy                                                           & \unit{cm^{-1}}   \\
+        $\omega_{e}$      & Vibrational constant -- first term                                           & \unit{cm^{-1}}   \\
+        $\omega_{e}x_{e}$ & Vibrational constant -- second term                                          & \unit{cm^{-1}}   \\
+        $\omega_{e}y_{e}$ & Vibrational constant -- third term                                           & \unit{cm^{-1}}   \\
+        $\omega_{e}z_{e}$ & Vibrational constant -- fourth term                                          & \unit{cm^{-1}}   \\
+        \multicolumn{3}{c}{\textit{Rotational}}                                                                             \\
         \cmidrule(lr){1-3}
-        $B_{e}$           & Rotational constant - equilibrium                                           & $\unit{cm^{-1}}$ \\
-        $\alpha_{e}$      & Rotational constant - first term                                            & $\unit{cm^{-1}}$ \\
-        $\gamma_{e}$      & Rotational constant - second term (rotation-vibration interaction constant) & $\unit{cm^{-1}}$ \\
-        $\delta_{e}$      & Rotational constant - third term                                            & $\unit{cm^{-1}}$ \\
-        \multicolumn{3}{c}{\textit{Centrifugal Distortion}}                                                                \\
+        $B_{e}$           & Rotational constant -- equilibrium                                           & \unit{cm^{-1}}   \\
+        $\alpha_{e}$      & Rotational constant -- first term                                            & \unit{cm^{-1}}   \\
+        $\gamma_{e}$      & Rotational constant -- second term (rotation-vibration interaction constant) & \unit{cm^{-1}}   \\
+        $\delta_{e}$      & Rotational constant -- third term                                            & \unit{cm^{-1}}   \\
+        \multicolumn{3}{c}{\textit{Centrifugal Distortion}}                                                                 \\
         \cmidrule(lr){1-3}
-        $D_{e}$           & Centrifugal distortion constant - equilibrium                               & $\unit{cm^{-1}}$ \\
-        $\beta_{e}$       & Centrifugal distortion constant - first term                                & $\unit{cm^{-1}}$ \\
-        \multicolumn{3}{c}{\textit{Spin-Splitting}}                                                                        \\
+        $D_{e}$           & Centrifugal distortion constant -- equilibrium                               & \unit{cm^{-1}}   \\
+        $\beta_{e}$       & Centrifugal distortion constant -- first term                                & \unit{cm^{-1}}   \\
+        \multicolumn{3}{c}{\textit{Spin-Splitting}}                                                                         \\
         \cmidrule(lr){1-3}
-        $\lambda$         & Spin-spin coupling parameter                                                & $\unit{cm^{-1}}$ \\
-        $\gamma$          & Spin-rotation coupling parameter                                            & $\unit{cm^{-1}}$ \\
-        \multicolumn{3}{c}{\textit{Other}}                                                                                 \\
+        $\lambda$         & Spin-spin coupling parameter                                                 & \unit{cm^{-1}}   \\
+        $\gamma$          & Spin-rotation coupling parameter                                             & \unit{cm^{-1}}   \\
+        \multicolumn{3}{c}{\textit{Other}}                                                                                  \\
         \cmidrule(lr){1-3}
-        $H_{e}$           & Sixth-order rotational constant                                             & $\unit{cm^{-1}}$ \\
-        $r_{e}$           & Equilibrium internuclear distance                                           & \AA              \\
-        $\nu_{00}$        & Position of $0\dash0$ band                                                  & $\unit{cm^{-1}}$ \\
+        $H_{e}$           & Sixth-order rotational constant                                              & \unit{cm^{-1}}   \\
+        $r_{e}$           & Equilibrium internuclear distance                                            & \unit{\angstrom} \\
+        $\nu_{00}$        & Position of $0\dash0$ band                                                   & \unit{cm^{-1}}   \\
         \bottomrule
     \end{tabular}
 \end{table}
