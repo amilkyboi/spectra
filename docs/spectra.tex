@@ -4,8 +4,11 @@
 \usepackage[parfill, skip=1em]{parskip}
 \usepackage[labelfont=bf]{caption}
 \usepackage[margin=1in]{geometry}
-\usepackage[hidelinks]{hyperref}
+\usepackage[colorlinks]{hyperref}
 \usepackage{amssymb, booktabs, derivative, fancyhdr, float, graphicx, mhchem, natex, pagecolor, pgfplots, siunitx, tikz}
+
+% must be loaded after amsmath
+\usepackage[capitalize]{cleveref}
 
 % background and foreground colors
 \definecolor{bgcolor}{HTML}{1e1e2e}
@@ -37,7 +40,11 @@
 }
 
 % hyperref
-\urlstyle{same}
+\hypersetup{
+    linkcolor = p1,
+    urlcolor = p2,
+    citecolor = p3
+}
 
 % pgfplots
 \pgfplotsset{compat=newest}
@@ -251,7 +258,7 @@ Two forbidden lines with $\adif{N} = \pm3, \adif{J} = \pm1$ have been observed.
 
 Because of symmetry properties of the rotational levels and the influence of nuclear spin, only the rotational levels with odd $N$ can be populated in $X\state{3}{\Sigma}_{g}^{-}$, and only the rotational levels with even $N$ can be populated in $B\state{3}{\Sigma}_{u}^{-}$. See Herzberg, p. 135.
 
-Furthermore, for $N = 0$ in $B\state{3}{\Sigma}_{u}^{-}(v')$, only the $F_1$ level exists.
+Furthermore, for $N = 0$ in $B\state{3}{\Sigma}_{u}^{-}$, only the $F_{1}$ level exists.
 
 \begin{figure}[H]
     \centering
@@ -382,142 +389,174 @@ Furthermore, for $N = 0$ in $B\state{3}{\Sigma}_{u}^{-}(v')$, only the $F_1$ lev
 
 \section{Term Values}
 
-Dunham series expansion from Herzberg, p. 108:
+ (Herzberg, p. 109)
+The term values of the vibrating rotator can be expressed in the form of a double power series called the Dunham expansion, where
 \begin{equation*}
-    T = \sum_{\ell j}Y_{\ell j}\ab(v + \tfrac{1}{2})^{\ell} [J(J + 1)]^{j}
+    T = \sum_{lj}Y_{lj}\ab(v + \tfrac{1}{2})^{l} [J(J + 1)]^{j}.
 \end{equation*}
-
-Coefficients From Babou, 2009:
+(Babou, 2009)
+The relations between Dunham coefficients $Y_{lj}$ and spectroscopic constants are shown below in \cref{t:dunham_coefficients}.
 \begin{table}[H]
     \centering
-    \caption{Dunham Expansion Coefficients}
+    \caption{Relations between Dunham coefficients and spectroscopic constants.}
+    \label{t:dunham_coefficients}
     \begin{tabular}{c|ccccc}
         \toprule
-        $\ell$ & $j = 0$            & $j = 1$           & $j = 2$      & $j = 3$ & $j = 4$ \\
+        $l$ & $j = 0$            & $j = 1$           & $j = 2$      & $j = 3$ & $j = 4$ \\
         \midrule
-        0      & $Y_{00}$           & $B_{e}$           & $-D_{e}$     & $H_{e}$ & $L_{e}$ \\
-        1      & $\omega_{e}$       & $-\alpha_{e}$     & $-\beta_{e}$ &         &         \\
-        2      & $-\omega_{e}x_{e}$ & $\gamma_{e}$      & $-g_{e}$     &         &         \\
-        3      & $\omega_{e}y_{e}$  & $\delta_{e}$      & $-h_{e}$     &         &         \\
-        4      & $\omega_{e}z_{e}$  & $\varepsilon_{e}$ & $-k_{e}$     &         &         \\
-        5      & $\omega_{e}a_{e}$  & $\xi_{e}$         &              &         &         \\
-        6      & $\omega_{e}b_{e}$  & $\eta_{e}$        &              &         &         \\
-        7      & $\omega_{e}c_{e}$  & $\theta_{e}$      &              &         &         \\
-        8      & $\omega_{e}d_{e}$  &                   &              &         &         \\
-        9      & $\omega_{e}e_{e}$  &                   &              &         &         \\
+        0   & $Y_{00}$           & $B_{e}$           & $-D_{e}$     & $H_{e}$ & $L_{e}$ \\
+        1   & $\omega_{e}$       & $-\alpha_{e}$     & $-\beta_{e}$ &         &         \\
+        2   & $-\omega_{e}x_{e}$ & $\gamma_{e}$      & $-g_{e}$     &         &         \\
+        3   & $\omega_{e}y_{e}$  & $\delta_{e}$      & $-h_{e}$     &         &         \\
+        4   & $\omega_{e}z_{e}$  & $\varepsilon_{e}$ & $-k_{e}$     &         &         \\
+        5   & $\omega_{e}a_{e}$  & $\xi_{e}$         &              &         &         \\
+        6   & $\omega_{e}b_{e}$  & $\eta_{e}$        &              &         &         \\
+        7   & $\omega_{e}c_{e}$  & $\theta_{e}$      &              &         &         \\
+        8   & $\omega_{e}d_{e}$  &                   &              &         &         \\
+        9   & $\omega_{e}e_{e}$  &                   &              &         &         \\
         \bottomrule
     \end{tabular}
 \end{table}
-
-Zero-point energy from Herzberg p. 108:
+(Herzberg p. 109)
+The first coefficient represents the addition to the zero-point energy above that of the anharmonic oscillator, which is
 \begin{equation*}
-    Y_{00} = \frac{B_{e}}{4} + \frac{\alpha_{e}\omega_{e}}{12B_{e}} + \frac{\alpha_{e}^{2}\omega_{e}^{2}}{144B_{e}^{2}} - \omega_{e}x_{e}
+    Y_{00} = \frac{B_{e}}{4} + \frac{\alpha_{e}\omega_{e}}{12B_{e}} + \frac{\alpha_{e}^{2}\omega_{e}^{2}}{144B_{e}^{2}} - \omega_{e}x_{e}.
 \end{equation*}
 
-From Babou, 2009:
+(Herzberg p. 149)
+According to the Born--Oppenheimer approximation, the total energy of a molecule can be approximated as the sum of translational, electronic, vibrational, rotational, and nuclear components; that is
 \begin{equation*}
-    T = T_{e} + G + F
+    E = E_{t} + E_{e} + E_{v} + E_{r} + E_{n}.
+\end{equation*}
+In molecular spectroscopy, the components of interest are the electronic, vibrational, and rotational energies. Writing this equation using term values yields
+\begin{equation*}
+    T = T_{e} + G + F.
+\end{equation*}
+(Babou, 2009)
+The vibrational term value can be expanded as a power series following the approach of Dunham, which yields
+\begin{align*}
+    G & = \omega_{e}\ab(v + \tfrac{1}{2}) - \omega_{e}x_{e}\ab(v + \tfrac{1}{2})^{2} + \omega_{e}y_{e}\ab(v + \tfrac{1}{2})^{3} + \omega_{e}z_{e}\ab(v + \tfrac{1}{2})^{4} + \omega_{e}a_{e}\ab(v + \tfrac{1}{2})^{5} \\
+      & + \omega_{e}b_{e}\ab(v + \tfrac{1}{2})^{6} + \omega_{e}c_{e}\ab(v + \tfrac{1}{2})^{7} + \omega_{e}d_{e}\ab(v + \tfrac{1}{2})^{8} + \omega_{e}e_{e}\ab(v + \tfrac{1}{2})^{9} + \dotsb.
+\end{align*}
+Similarly, expansion of the rotational term value gives
+\begin{equation*}
+    F = B_{v}J(J + 1) - D_{v}[J(J + 1)]^{2} + H_{v}[J(J + 1)]^{3} + L_{v}[J(J + 1)]^{4} + \dotsb.
+\end{equation*}
+Note that the rotational expansion in particular is only a rough approximation and does not include the fine structure effects caused by spin-spin, spin-orbit, or spin-rotation coupling. These additions are made depending on the specific molecule under consideration. The rotational constants present within the rotational term value are expressed as
+\begin{align*}
+    B_{v} & = B_{e} - \alpha_{e}\ab(v + \tfrac{1}{2}) + \gamma_{e}\ab(v + \tfrac{1}{2})^{2} + \delta_{e}\ab(v + \tfrac{1}{2})^{3} + \varepsilon_{e}\ab(v + \tfrac{1}{2})^{4} + \xi_{e}\ab(v + \tfrac{1}{2})^{5} + \eta_{e}\ab(v + \tfrac{1}{2})^{6} \\
+          & + \theta_{e}\ab(v + \tfrac{1}{2})^{7} + \dotsb,                                                                                                                                                                                         \\
+    D_{v} & = D_{e} + \beta_{e}\ab(v + \tfrac{1}{2}) + g_{e}\ab(v + \tfrac{1}{2})^{2} + h_{e}\ab(v + \tfrac{1}{2})^{3} + k_{e}\ab(v + \tfrac{1}{2})^{4} + \dotsb,                                                                                   \\
+    H_{v} & = H_{e} + \dotsb,
+\end{align*}
+and
+\begin{equation*}
+    L_{v} = L_{e} + \dotsb.
+\end{equation*}
+
+(Amiot 1981, Eq. 1)
+The Hamiltonian for the $X\state{3}{\Sigma}_{g}^{-}$ ground state of \ce{O2} can be expressed as the sum of rotational, spin-spin, and spin-rotation interactions. Namely,
+\begin{equation*}
+    H = H_{r} + H_{ss} + H_{sr},
 \end{equation*}
 where
 \begin{align*}
-    G = \omega_{e}\ab(v + \tfrac{1}{2}) & - \omega_{e}x_{e}\ab(v + \tfrac{1}{2})^{2} + \omega_{e}y_{e}\ab(v + \tfrac{1}{2})^{3} + \omega_{e}z_{e}\ab(v + \tfrac{1}{2})^{4} + \omega_{e}a_{e}\ab(v + \tfrac{1}{2})^{5}          \\
-                                        & + \omega_{e}b_{e}\ab(v + \tfrac{1}{2})^{6} + \omega_{e}c_{e}\ab(v + \tfrac{1}{2})^{7} + \omega_{e}d_{e}\ab(v + \tfrac{1}{2})^{8} + \omega_{e}e_{e}\ab(v + \tfrac{1}{2})^{9} + \dotsb
-\end{align*}
-and (generally)
-\begin{equation*}
-    F = B_{v}J(J + 1) - D_{v}[J(J + 1)]^{2} + H_{v}[J(J + 1)]^{3} + L_{v}[J(J + 1)]^{4} + \dotsb
-\end{equation*}
-
-The rotational constants are
-\begin{align*}
-    B_{v} = B_{e} & - \alpha_{e}\ab(v + \tfrac{1}{2}) + \gamma_{e}\ab(v + \tfrac{1}{2})^{2} + \delta_{e}\ab(v + \tfrac{1}{2})^{3} + \varepsilon_{e}\ab(v + \tfrac{1}{2})^{4} + \xi_{e}\ab(v + \tfrac{1}{2})^{5} + \eta_{e}\ab(v + \tfrac{1}{2})^{6} \\
-                  & + \theta_{e}\ab(v + \tfrac{1}{2})^{7} + \dotsb
+    H_{r}  & = B\vb{N}^{2} - D\vb{N}^{4},                    \\
+    H_{ss} & = \tfrac{2}{3}\lambda(3S_{z}^{2} - \vb{S}^{2}),
 \end{align*}
 and
 \begin{equation*}
-    D_{v} = D_{e} + \beta_{e}\ab(v + \tfrac{1}{2}) + g_{e}\ab(v + \tfrac{1}{2})^{2} + h_{e}\ab(v + \tfrac{1}{2})^{3} + k_{e}\ab(v + \tfrac{1}{2})^{4} + \dotsb
+    H_{sr} = \gamma\vb{N}\vdot\vb{S}.
 \end{equation*}
-and
-\begin{equation*}
-    H_{v} = H_{e} + \dotsb
-\end{equation*}
-and
-\begin{equation*}
-    L_{v} = L_{e} + \dotsb
-\end{equation*}
-
-From \textit{Molecular Spectroscopic Constants of \ce{O2} ($B\state{3}{\Sigma}^{-}_{u}$): The Upper State of the Schumann--Runge Bands} by Cheung, Eq. (1):
-\begin{equation*}
-    \sop{H} = B\vb{N}^{2} + \tfrac{2}{3}\lambda(3S_{z}^{2} - \vb{S}^{2}) + \gamma\vb{N}\vdot\vb{S}
-\end{equation*}
-where
-\begin{equation*}
-    \vb{N} = \vb{J} - \vb{S}
-\end{equation*}
-
-Which can be expressed as (Wilheit, 1969 Eq. 1)
+The spin-spin and spin-rotation coupling constants, $\lambda$ and $\gamma$ respectively, can be written as
 \begin{align*}
-    \sop{H} = B\pmx{
-    J(J - 1)                           & 0                                        & 0            \\
-    (J + 1)(J + 2)                     & 0                                                       \\
-    0                                  & 0                                        & J(J + 1)
+    \lambda & = \lambda_{0} + \lambda_{1}\vb{N}^{2} \\
+    \gamma  & = \gamma_{0} + \gamma_{1}\vb{N}^{2}.
+\end{align*}
+
+(Amiot 1981, Eq. 1)
+In a Hund's case (b) basis, the matrix representation of the three Hamiltonians for a given $J$ is
+\begin{align*}
+    H_{r}                                          & = B\bmx{
+    J(J - 1)                                       & 0                                                        & 0                   \\
+    0                                              & (J + 1)(J + 2)                                           & 0                   \\
+    0                                              & 0                                                        & J(J + 1)
+    }                                                                                                                               \\
+                                                   & - D\bmx{
+    J^{2}(J - 1)^{2}                               & 0                                                        & 0                   \\
+    0                                              & (J + 1)^{2}(J + 2)^{2}                                   & 0                   \\
+    0                                              & 0                                                        & J^{2}(J + 1)^{2}
+    }                                                                                                                               \\
+    H_{ss}                                         & = \lambda_{0}\bmx{
+    \frac{2}{3} - \frac{2J}{2J + 1}                & \frac{2\sqrt{J(J + 1)}}{2J + 1}                          & 0                   \\
+    \frac{2\sqrt{J(J + 1)}}{2J + 1}                & \frac{2}{3} - \frac{2(J + 1)}{2J + 1}                    & 0                   \\
+    0                                              & 0                                                        & \frac{2}{3}
+    }                                                                                                                               \\
+                                                   & + \lambda_{1}\bmx{
+    \ab(\frac{2}{3} - \frac{2J}{2J + 1})J(J - 1)   & \frac{2\sqrt{J(J + 1)}}{2J + 1}(J^{2} + J + 1)           & 0                   \\
+    \frac{2\sqrt{J(J + 1)}}{2J + 1}(J^{2} + J + 1) & \ab(\frac{2}{3} - \frac{2(J + 1)}{2J + 1})(J + 1)(J + 2) & 0                   \\
+    0                                              & 0                                                        & \frac{2}{3}J(J + 1)
+    }                                                                                                                               \\
+    H_{sr}                                         & = \gamma_{0}\bmx{
+    J - 1                                          & 0                                                        & 0                   \\
+    0                                              & -(J + 2)                                                 & 0                   \\
+    0                                              & 0                                                        & -1
     }
-                                       & + \lambda\pmx{
-    \tfrac{-2J}{2J + 1} + \tfrac{2}{3} & \tfrac{2\sqrt{J(J + 1)}}{2J + 1}         & 0            \\
-    \tfrac{2\sqrt{J(J + 1)}}{2J + 1}   & \tfrac{-2(J + 1)}{2J + 1} + \tfrac{2}{3} & 0            \\
-    0                                  & 0                                        & \tfrac{2}{3}
-    }                                                                                            \\
-                                       & + \gamma\pmx{
-    J - 1                              & 0                                        & 0            \\
-    0                                  & -(J + 2)                                 & 0            \\
-    0                                  & 0                                        & 1
-    }
+    + \gamma_{1}\bmx{
+    J(J - 1)^{2}                                   & 0                                                        & 0                   \\
+    0                                              & -(J + 2)^{2}(J + 1)                                      & 0                   \\
+    0                                              & 0                                                        & -J(J + 1)
+    }.
 \end{align*}
-where (Krupiene Appendix C)
-\begin{align*}
-    B       & = B_{0} + B_{1}N(N + 1)             \\
-    \lambda & = \lambda_{0} + \lambda_{1}N(N + 1) \\
-    \gamma  & = \gamma_{0} + \gamma_{1}N(N + 1)
-\end{align*}
-Note that $B_{1} = -D_{0}$
 
-Cheung, Table 1:
-\begin{equation*}
-    x = J(J + 1)
-\end{equation*}
-and
-\begin{equation*}
-    F_{2} = T + Bx - Dx^{2} + \tfrac{2}{3}\lambda - \gamma + \tfrac{2}{3}\lambda_{D}x - \gamma_{D}x
-\end{equation*}
-The matrix elements of the Hamiltonian are symmetric
-\begin{equation*}
-    \bmx{H_{11} & H_{12} \\ H_{21} & H_{22}}
-\end{equation*}
+(Cheung, 1986) Using the same Hamiltonian, the combined matrix elements in a Hund's case (a) basis can also be written as
+\begin{align*}
+    F_{2}      & = T + Bx - Dx^{2} + \tfrac{2}{3}\lambda - \gamma + \tfrac{2}{3}\lambda_{D}x - \gamma_{D}x, \\
+    F_{1}F_{3} & = \bmx{
+    H_{11}     & H_{12}                                                                                     \\ H_{21} & H_{22}
+    },
+\end{align*}
 where
 \begin{align*}
     H_{11} & = T + B(x + 2) - D(x^{2} + 8x + 4) - \tfrac{4}{3}\lambda - 2\gamma - \tfrac{4}{3}\lambda_{D}(x + 2) - 4\gamma_{D}(x + 1) \\
     H_{12} & = -2\sqrt{x}\ab[B - 2D(x + 1) - \tfrac{\gamma}{2} - \tfrac{2}{3}\lambda_{D} - \tfrac{1}{2}\gamma_{D}(x + 4)]             \\
     H_{21} & = H_{12}                                                                                                                 \\
-    H_{22} & = T + Bx - D(x^{2} + 4x) + \tfrac{2}{3}\lambda - \gamma + \tfrac{2}{3}x\lambda_{D} - 3x\gamma_{D}
+    H_{22} & = T + Bx - D(x^{2} + 4x) + \tfrac{2}{3}\lambda - \gamma + \tfrac{2}{3}x\lambda_{D} - 3x\gamma_{D}.
 \end{align*}
-The eigenvalues are
+Note that
+\begin{equation*}
+    x = J(J + 1).
+\end{equation*}
+
+\section{Main and Satellite Branches}
+
+ (Herzberg p. 249) The six main branches in $\state{3}{\Sigma}\dash\state{3}{\Sigma}$ transitions are
 \begin{align*}
-    F_{1}, F_{3} = & -\tfrac{3}{2}\gamma - \tfrac{7}{2}\gamma_{D} x - 2 \gamma_{D} - \tfrac{1}{3}\lambda - \tfrac{1}{3}\lambda_{D} x - \tfrac{4}{3}\lambda_{D} + B x + B - D x^{2} - 6 D x - 2 D + T                           \\
-                   & \pm \tfrac{1}{6}\bigl(36 \gamma^{2} x + 9 \gamma^{2} + 72 \gamma \gamma_{D} x^{2} + 306 \gamma \gamma_{D} x + 72 \gamma \gamma_{D} + 36 \gamma \lambda + 132 \gamma \lambda_{D} x + 48 \gamma \lambda_{D} \\
-                   & - 144 \gamma B x - 36 \gamma B + 288 \gamma D x^{2} + 360 \gamma D x + 72 \gamma D + 36 \gamma_{D}^{2} x^{3} + 297 \gamma_{D}^{2} x^{2} + 648 \gamma_{D}^{2} x                                            \\
-                   & + 144 \gamma_{D}^{2} + 36 \gamma_{D} \lambda x + 144 \gamma_{D} \lambda + 132 \gamma_{D} \lambda_{D} x^{2} + 576 \gamma_{D} \lambda_{D} x + 192 \gamma_{D} \lambda_{D} - 144 \gamma_{D} B x^{2}           \\
-                   & - 612 \gamma_{D} B x - 144 \gamma_{D} B + 288 \gamma_{D} D x^{3} + 1512 \gamma_{D} D x^{2} + 1512 \gamma_{D} D x + 288 \gamma_{D} D + 36 \lambda^{2}                                                      \\
-                   & + 72 \lambda \lambda_{D} x + 96 \lambda \lambda_{D} - 72 \lambda B + 144 \lambda D x + 144 \lambda D + 36 \lambda_{D}^{2} x^{2} + 160 \lambda_{D}^{2} x + 64 \lambda_{D}^{2}                              \\
-                   & - 264 \lambda_{D} B x - 96 \lambda_{D} B + 528 \lambda_{D} D x^{2} + 720 \lambda_{D} D x + 192 \lambda_{D} D + 144 B^{2} x + 36 B^{2}                                                                     \\
-                   & - 576 B D x^{2} - 720 B D x - 144 B D + 576 D^{2} x^{3} + 1296 D^{2} x^{2} + 864 D^{2} x + 144 D^{2}\bigr)^{1/2}
+    P_{1} & = \nu_{0} + F'_{1}(J - 1) - F''_{1}(J)  \\
+    R_{1} & = \nu_{0} + F'_{1}(J + 1) - F''_{1}(J)  \\
+    P_{2} & = \nu_{0} + F'_{2}(J - 1) - F''_{2}(J)  \\
+    R_{2} & = \nu_{0} + F'_{2}(J + 1) - F''_{2}(J)  \\
+    P_{3} & = \nu_{0} + F'_{3}(J - 1) - F''_{3}(J)  \\
+    R_{3} & = \nu_{0} + F'_{3}(J + 1) - F''_{3}(J).
+\end{align*}
+The six satellite branches are
+\begin{align*}
+    \state{P}{Q}_{12} & = \nu_{0} + F'_{1}(J - 1) - F''_{2}(J)  \\
+    \state{R}{Q}_{21} & = \nu_{0} + F'_{2}(J + 1) - F''_{1}(J)  \\
+    \state{P}{Q}_{13} & = \nu_{0} + F'_{1}(J - 1) - F''_{3}(J)  \\
+    \state{R}{Q}_{31} & = \nu_{0} + F'_{3}(J + 1) - F''_{1}(J)  \\
+    \state{P}{Q}_{23} & = \nu_{0} + F'_{2}(J - 1) - F''_{3}(J)  \\
+    \state{R}{Q}_{32} & = \nu_{0} + F'_{3}(J + 1) - F''_{2}(J).
 \end{align*}
 
 \section{H\"onl--London Factors}
 
-From \textit{H\"onl--London Factors for $\state{3}{\Sigma}^{\pm}\dash\state{3}{\Sigma}^{\pm}$ Transitions} by Tatum, Table 1:
+ (Tatum, 1966)
+The rotational line strength factors for $\state{3}{\Sigma}^{\pm}\dash\state{3}{\Sigma}^{\pm}$ transitions are shown below in \cref{t:honl_london_factors_3s}.
 \begin{table}[H]
     \centering
-    \caption{H\"onl--London Factors for $\state{3}{\Sigma}^{\pm}\dash\state{3}{\Sigma}^{\pm}$ Transitions}
+    \caption{H\"onl--London Factors for $\state{3}{\Sigma}^{\pm}\dash\state{3}{\Sigma}^{\pm}$ transitions.}
+    \label{t:honl_london_factors_3s}
     \begin{tabular}{ccc}
         \toprule
         Branch              & Emission                                & Absorption                                 \\
@@ -526,7 +565,7 @@ From \textit{H\"onl--London Factors for $\state{3}{\Sigma}^{\pm}\dash\state{3}{\
         \addlinespace[0.5em]
         $R_{1}$             & $\dfrac{N'(2N' + 3)}{2N' + 1}$          & $\dfrac{(N'' + 1)(2N'' + 5)}{2N'' + 3}$    \\
         \addlinespace[0.5em]
-        $\state{P}{R}_{13}$ & $\dfrac{1}{(N' + 1)(2N' + 1)(2N' + 3)}$ & $\dfrac{1}{N''(2N'' - 1)(2N'' + 1)}$       \\
+        $\state{P}{Q}_{13}$ & $\dfrac{1}{(N' + 1)(2N' + 1)(2N' + 3)}$ & $\dfrac{1}{N''(2N'' - 1)(2N'' + 1)}$       \\
         \addlinespace[0.5em]
         $\state{P}{Q}_{12}$ & $\dfrac{1}{N' + 1}$                     & $\dfrac{1}{N''}$                           \\
         \addlinespace[0.5em]
@@ -544,7 +583,7 @@ From \textit{H\"onl--London Factors for $\state{3}{\Sigma}^{\pm}\dash\state{3}{\
         \addlinespace[0.5em]
         $\state{R}{Q}_{32}$ & $\dfrac{1}{N'}$                         & $\dfrac{1}{N'' + 1}$                       \\
         \addlinespace[0.5em]
-        $\state{R}{P}_{31}$ & $\dfrac{1}{N'(2N' - 1)(2N' + 1)}$       & $\dfrac{1}{(N'' + 1)(2N'' + 1)(2N'' + 3)}$ \\
+        $\state{R}{Q}_{31}$ & $\dfrac{1}{N'(2N' - 1)(2N' + 1)}$       & $\dfrac{1}{(N'' + 1)(2N'' + 1)(2N'' + 3)}$ \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -683,6 +722,10 @@ The effective rotational partition function for symmetric molecules is Hanson Eq
 Similarly, the effective rotational degeneracy is Hanson Eq. (5.6):
 \begin{equation*}
     g'_{r} = g_{r}g_{n}
+\end{equation*}
+For homonuclear diatomic molecules, the effective rotational degeneracy is Hanson Eq. (5.16)
+\begin{equation*}
+    g'_{rot} = \frac{(2J + 1)}{2}\ab[(2I + 1)^{2} \pm (2I + 1)]
 \end{equation*}
 
 \subsection{Vibrational}
