@@ -1,14 +1,17 @@
 \documentclass[11pt, twoside, fleqn]{report}
 
 \usepackage[backend=biber, style=ieee]{biblatex}
-\usepackage[parfill, skip=1em]{parskip}
 \usepackage[labelfont=bf]{caption}
 \usepackage[margin=1in]{geometry}
 \usepackage[colorlinks]{hyperref}
-\usepackage{amssymb, booktabs, derivative, fancyhdr, float, graphicx, mhchem, natex, pagecolor, pgfplots, siunitx, tikz}
+\usepackage[version=4]{mhchem}
+\usepackage[parfill, skip=1em]{parskip}
+\usepackage{amssymb, booktabs, derivative, fancyhdr, float, graphicx, natex, pgfplots, physics2, siunitx, tikz}
 
 % must be loaded after amsmath
 \usepackage[capitalize]{cleveref}
+% load after xcolor
+\usepackage{pagecolor}
 
 % background and foreground colors
 \definecolor{bgcolor}{HTML}{1e1e2e}
@@ -22,6 +25,12 @@
 \definecolor{p5}{HTML}{89dceb}
 \definecolor{p6}{HTML}{89b4fa}
 
+% siunitx
+\DeclareSIUnit{\angstrom}{\text{Å}}
+
+% physics2
+\usephysicsmodule{ab}
+
 % pagecolor
 \pagecolor{bgcolor}
 \color{fgcolor}
@@ -30,6 +39,7 @@
 \addbibresource{references.bib}
 
 % fancyhdr
+\setlength{\headheight}{14pt}
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter\ #1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
 \renewcommand{\footrulewidth}{0.4pt}
