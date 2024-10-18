@@ -397,6 +397,38 @@ Furthermore, for $N = 0$ in $B\state{3}{\Sigma}_{u}^{-}$, only the $F_{1}$ level
     \caption{Primary branch transitions between rotational levels of the Schumann--Runge system of molecular oxygen.}
 \end{figure}
 
+\section{Total Energy}
+
+ (Herzberg p. 149)
+According to the Born--Oppenheimer approximation, the total energy of a molecule can be approximated as the sum of translational, electronic, vibrational, rotational, and nuclear components; that is
+\begin{equation*}
+    E = E_{t} + E_{e} + E_{v} + E_{r} + E_{n}.
+\end{equation*}
+In molecular spectroscopy, the components of interest are the electronic, vibrational, and rotational energies. Writing this equation using term values yields
+\begin{equation*}
+    T = T_{e} + G + F.
+\end{equation*}
+The wave numbers of the spectral lines corresponding to the transitions between two electronic states are given by
+\begin{equation*}
+    \nu = T' - T'' = (T_{e}' - T_{e}'') + (G' - G'') + (F' - F'').
+\end{equation*}
+This equation implies that the emitted or absorbed frequencies are composed of the electronic, vibrational, and rotational components:
+\begin{equation*}
+    \nu = \nu_{e} + \nu_{v} + \nu_{r}.
+\end{equation*}
+
+\section{Rotational Structure}
+
+ (Herzberg p. 168)
+For a specific vibrational transition, the quantity
+\begin{equation*}
+    \nu_{0} = \nu_{e} + \nu_{v},
+\end{equation*}
+called the band origin, is constant, while $\nu_{r}$ is variable and depends on the value of the rotational quantum numbers of the upper and lower states. Therefore, the wavenumbers of a rovibrational band can be computed as
+\begin{equation*}
+    \nu = \nu_{0} + F'(J') - F''(J'').
+\end{equation*}
+
 \section{Term Values}
 
  (Herzberg, p. 109)
@@ -433,15 +465,6 @@ The first coefficient represents the addition to the zero-point energy above tha
     Y_{00} = \frac{B_{e}}{4} + \frac{\alpha_{e}\omega_{e}}{12B_{e}} + \frac{\alpha_{e}^{2}\omega_{e}^{2}}{144B_{e}^{2}} - \omega_{e}x_{e}.
 \end{equation*}
 
-(Herzberg p. 149)
-According to the Born--Oppenheimer approximation, the total energy of a molecule can be approximated as the sum of translational, electronic, vibrational, rotational, and nuclear components; that is
-\begin{equation*}
-    E = E_{t} + E_{e} + E_{v} + E_{r} + E_{n}.
-\end{equation*}
-In molecular spectroscopy, the components of interest are the electronic, vibrational, and rotational energies. Writing this equation using term values yields
-\begin{equation*}
-    T = T_{e} + G + F.
-\end{equation*}
 (Babou, 2009)
 The vibrational term value can be expanded as a power series following the approach of Dunham, which yields
 \begin{align*}
@@ -652,12 +675,33 @@ From \textit{A Student's Guide to Atomic Physics} by Fox, Eq. (3.43) and \textit
 
 \section{Transition Intensities}
 
-\subsection{Inner Product}
+The general formulae for spectral line intensities are given in Herzberg p. 20.
+\begin{align*}
+    I_{nm} & = N_{n}hc\nu_{nm}A_{nm}                  \\
+    I_{nm} & = \rho_{nm}N_{m}hc\nu_{nm}B_{mn}\adif{x}
+\end{align*}
 
-From \textit{Introduction to Quantum Mechanics} by Griffiths, Eq. (3.6):
+\subsection{Einstein Coefficients}
+
+The Einstein transition probability of spontaneous emission is
 \begin{equation*}
-    \ip{f}{g} = \int_{a}^{b} \cc{f}g \odif{x}
+    A_{nm} = \frac{64\pi^{4}\nu_{nm}^{3}}{3h}\abs{\vb{R}_{nm}}^{2}.
 \end{equation*}
+Similarly, the Einstein transition probability of absorption is
+\begin{equation*}
+    B_{mn} = \frac{8\pi^{3}}{3h^{2}c}\abs{\vb{R}_{nm}}^{2}.
+\end{equation*}
+These two equations are related by
+\begin{equation*}
+    B_{mn} = \frac{1}{8\pi hc\nu_{nm}^{3}}A_{nm}
+\end{equation*}
+
+For transitions between degenerate levels, the above formulae must be modified as such:
+\begin{align*}
+    A_{nm} & = \frac{64\pi^{4}\nu_{nm}^{3}}{3h}\frac{\sum\abs{\vb{R}_{n_{i}m_{i}}}^{2}}{d_{n}} \\
+    B_{mn} & = \frac{8\pi^{3}}{3h^{2}c}\frac{\sum\abs{\vb{R}_{n_{i}m_{i}}}^{2}}{d_{m}}         \\
+    B_{mn} & = \frac{1}{8\pi hc\nu_{nm}^{3}}\frac{d_{n}}{d_{m}}A_{nm}
+\end{align*}
 
 \subsection{Transition Moment}
 
@@ -665,10 +709,25 @@ From Herzberg, Eq. (IV, 67):
 \begin{equation*}
     \vb{R} = \int \psi'\vb{M}\psi'' \odif{\tau}
 \end{equation*}
-
 From Herzberg, Eq. (VI, 58): (non-degenerate only?)
 \begin{equation*}
     \vb{R} = \vb{R}_{e}^{nm}\vb{R}_{v}^{v'v''}\vb{R}_{r}^{J'J''}
+\end{equation*}
+The transition probability for absorption is given by Herzberg p. 382 as
+\begin{equation*}
+    B_{evr} = \frac{8\pi^{3}}{3h^{2}c}\frac{\sum\abs{\vb{R}}^{2}}{2J'' + 1} = \frac{8\pi^{3}}{3h^{2}c}\abs{\vb{R}_{e}}^{2}\abs{\vb{R}_{v}}^{2}\frac{\sum\abs{\vb{R}_{r}}^{2}}{2J'' + 1},
+\end{equation*}
+where
+\begin{equation*}
+    \abs{\vb{R}_{v}}^{2} = q_{v},
+\end{equation*}
+and
+\begin{equation*}
+    \abs{\vb{R}_{r}}^{2} = S_{J}.
+\end{equation*}
+Using these two substitutions,
+\begin{equation*}
+    B_{evr} = B_{e}q_{v}\frac{S_{J}}{2J'' + 1}.
 \end{equation*}
 
 \section{Partition Functions}
